@@ -155,6 +155,7 @@
     <button onclick="showPage('standards')">Standards</button>
     <button onclick="showPage('spinner')">Spin to Pick</button>
     <button onclick="showPage('rubric')">Rubric</button>
+    <button onclick="showPage('printables')">Printables</button>
   </div>
 </nav>
 
@@ -478,7 +479,7 @@ function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const pages=['home','overview','days','standards','spinner','rubric'];
+  const pages=['home','overview','days','standards','spinner','rubric','printables'];
   const idx=pages.indexOf(id);
   if(idx>=0) document.querySelectorAll('.nav-links button')[idx].classList.add('active');
   window.scrollTo(0,0);
@@ -592,5 +593,271 @@ function showResult(){
   document.getElementById('resultBox').classList.add('show');
 }
 </script>
+
+<!-- DAY TABS STYLES -->
+<style>
+.day-tabs{display:flex;gap:6px;margin-bottom:1.25rem;border-bottom:1.5px solid var(--border);padding-bottom:0}
+.day-tab{background:transparent;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--muted);padding:8px 16px;cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;transition:all .2s}
+.day-tab:hover{color:var(--navy)}
+.day-tab.active{color:var(--navy);border-bottom-color:var(--red)}
+.day-tab-panel{display:none}.day-tab-panel.active{display:block}
+/* DARK SLIDE */
+.ex-slide{background:#1a1a2e;border-radius:12px;padding:1.75rem 2rem 1.5rem;color:#fff;margin-bottom:.5rem}
+.ex-tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#a0a8c0;margin-bottom:.4rem}
+.ex-title{font-size:18px;font-weight:500;color:#fff;margin-bottom:.3rem}
+.ex-sub{font-size:12px;color:#a0a8c0;margin-bottom:1.25rem}
+.ex-footer{margin-top:1rem;padding-top:.75rem;border-top:0.5px solid rgba(255,255,255,.1);font-size:11px;color:#7b88b8}
+.ex-steps{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ex-step{background:rgba(255,255,255,.07);border-radius:9px;border:0.5px solid rgba(255,255,255,.12);padding:11px 13px}
+.ex-step-num{font-size:10px;font-weight:500;color:#7b88b8;margin-bottom:4px}
+.ex-step-h{font-size:12px;font-weight:500;color:#fff;margin-bottom:3px}
+.ex-step-d{font-size:11px;color:#a0a8c0;line-height:1.5}
+/* EXAMPLE CARDS */
+.ex-standard-box{background:rgba(255,255,255,.07);border-radius:9px;border:0.5px solid rgba(255,255,255,.12);padding:11px 15px;margin-bottom:.85rem}
+.ex-card-label{font-size:10px;font-weight:500;color:#7b88b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.ex-card-text{font-size:12px;color:#d0d8ee;line-height:1.5}
+.ex-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:.85rem}
+.ex-card{background:rgba(255,255,255,.05);border-radius:8px;border:0.5px solid rgba(255,255,255,.1);padding:9px 11px}
+.ex-card.full{grid-column:1/-1}
+.ex-goal-bar{background:rgba(100,180,120,.12);border:0.5px solid rgba(100,180,120,.25);border-radius:8px;padding:9px 13px}
+.ex-goal-bar .ex-card-label{color:#7ecb9a}
+.ex-goal-bar .ex-card-text{color:#c6f0d6}
+.ex-blue-bar{background:rgba(100,160,220,.12);border:0.5px solid rgba(100,160,220,.25);border-radius:8px;padding:9px 13px}
+.ex-blue-bar .ex-card-label{color:#7ab4e0}
+.ex-blue-bar .ex-card-text{color:#c0d8f0}
+.ex-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:.85rem}
+.ex-thumb{background:rgba(255,255,255,.07);border:0.5px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 10px}
+.ex-thumb-num{font-size:10px;color:#7b88b8;margin-bottom:3px}
+.ex-thumb-title{font-size:11px;font-weight:500;color:#fff;margin-bottom:3px}
+.ex-thumb-note{font-size:10px;color:#a0a8c0;line-height:1.4}
+/* PLANNING PAGE */
+.plan-page{background:white;border:1.5px solid var(--border);border-radius:12px;padding:1.75rem 2rem}
+.plan-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.plan-title{font-size:14px;font-weight:600;color:var(--navy)}
+.plan-meta{font-size:11px;color:var(--muted);margin-top:4px}
+.plan-name-row{font-size:11px;color:var(--muted);text-align:right}
+.ref-banner{background:#f8f4ef;border:0.5px solid var(--border);border-radius:8px;padding:9px 13px;margin-bottom:1rem}
+.ref-banner-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:6px}
+.ref-row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ref-cell{font-size:11px;color:var(--muted);line-height:1.5}
+.ref-cell strong{color:var(--navy);font-weight:500}
+.plan-section{margin-bottom:1.1rem}
+.plan-section-label{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.plan-card{border:0.5px solid var(--border);border-radius:8px;padding:9px 11px;margin-bottom:0}
+.plan-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.plan-card-full{grid-column:1/-1}
+.plan-q{font-size:12px;font-weight:500;color:var(--navy);margin-bottom:3px}
+.plan-stem{font-size:11px;color:var(--muted);font-style:italic;margin-bottom:7px;line-height:1.5}
+.wl{display:flex;flex-direction:column;gap:6px}
+.wl-line{border-bottom:0.5px solid var(--border);height:19px}
+.print-btn{background:var(--navy);color:white;border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:9px 20px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s;margin-bottom:1rem}
+.print-btn:hover{background:#2a3f5f}
+.collect-bar{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:.85rem;border-top:0.5px solid var(--border)}
+.collect-left{font-size:11px;color:var(--muted)}
+.collect-stamp{font-size:11px;border:0.5px solid var(--border);border-radius:8px;padding:3px 10px;color:var(--muted)}
+/* PRINTABLES PAGE */
+.print-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:2rem}
+.print-card{background:white;border:1.5px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:all .2s}
+.print-card:hover{border-color:var(--navy);transform:translateY(-1px)}
+.print-card-day{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--red);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+.print-card-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:5px}
+.print-card-desc{font-size:11px;color:var(--muted);line-height:1.4}
+.print-card-btn{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:11px;font-weight:500;color:var(--navy);background:#f8f4ef;border:0.5px solid var(--border);border-radius:6px;padding:4px 10px}
+@media print{
+  nav,.day-tabs,.print-btn,.back-btn,.videos-section,.day-detail-header,.steps-grid{display:none!important}
+  .plan-page{border:none;padding:0;border-radius:0}
+  body{background:white}
+}
+</style>
+
+<!-- PRINTABLES PAGE -->
+<div id="printables" class="page">
+  <div class="section-eyebrow">Student Materials</div>
+  <div class="section-title">Printable Planning Pages</div>
+  <div class="section-sub">Click any day to view and print the student planning page. Each page has fill-in fields and a teacher check box at the bottom.</div>
+  <div class="print-grid">
+    <div class="print-card" onclick="showDayTab('d1','plan')"><div class="print-card-day">Day 1</div><div class="print-card-title">Standard Breakdown</div><div class="print-card-desc">Students decode their standard, identify key words, and write their "I can..." goal.</div><span class="print-card-btn">🖨 View & Print</span></div>
+    <div class="print-card" onclick="showDayTab('d2','plan')"><div class="print-card-day">Day 2</div><div class="print-card-title">Lesson Plan</div><div class="print-card-desc">Teaching method, visual, timed outline, note structure, and team roles.</div><span class="print-card-btn">🖨 View & Print</span></div>
+    <div class="print-card" onclick="showDayTab('d3','plan')"><div class="print-card-day">Day 3</div><div class="print-card-title">Slides & Teacher Notes</div><div class="print-card-desc">Slide planner with content column and speaker notes column side by side.</div><span class="print-card-btn">🖨 View & Print</span></div>
+    <div class="print-card" onclick="showDayTab('d4','plan')"><div class="print-card-day">Day 4</div><div class="print-card-title">Student Activity</div><div class="print-card-desc">Format, problems, instructions, answer key, and debrief plan.</div><span class="print-card-btn">🖨 View & Print</span></div>
+    <div class="print-card" onclick="showDayTab('d5','plan')"><div class="print-card-day">Day 5</div><div class="print-card-title">Assessment + Homework</div><div class="print-card-desc">Assessment format, questions, answer key, logistics, and optional homework.</div><span class="print-card-btn">🖨 View & Print</span></div>
+    <div class="print-card" onclick="showDayTab('d6','plan')"><div class="print-card-day">Day 6</div><div class="print-card-title">Rehearsal Self-Check</div><div class="print-card-desc">Timed run-through tracker and 10-item final checklist.</div><span class="print-card-btn">🖨 View & Print</span></div>
+  </div>
+</div>
+
+<script>
+// INJECT TABS INTO DAY PAGES
+function buildDayTabs(dayId) {
+  const page = document.getElementById('day-' + dayId);
+  if (!page || page.querySelector('.day-tabs')) return;
+  const existingContent = page.innerHTML;
+  // Find insertion point — after back button
+  const insertPoint = page.querySelector('.back-btn');
+  if (!insertPoint) return;
+
+  const tabsHTML = `
+  <div class="day-tabs">
+    <button class="day-tab active" onclick="switchDayTab('${dayId}','steps',this)">📋 Steps</button>
+    <button class="day-tab" onclick="switchDayTab('${dayId}','slide',this)">📽 Instruction Slide</button>
+    <button class="day-tab" onclick="switchDayTab('${dayId}','example',this)">✅ Worked Example</button>
+    <button class="day-tab" onclick="switchDayTab('${dayId}','plan',this)">📄 Planning Page</button>
+  </div>
+  <div id="${dayId}-steps" class="day-tab-panel active"></div>
+  <div id="${dayId}-slide" class="day-tab-panel"></div>
+  <div id="${dayId}-example" class="day-tab-panel"></div>
+  <div id="${dayId}-plan" class="day-tab-panel"></div>`;
+
+  // Move existing content into steps panel
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = tabsHTML;
+  insertPoint.after(wrapper);
+
+  // Move existing day content (header + steps + videos) into steps panel
+  const stepsPanel = document.getElementById(dayId + '-steps');
+  const toMove = [...page.querySelectorAll('.day-detail-header, .steps-grid, .videos-section')];
+  toMove.forEach(el => stepsPanel.appendChild(el));
+
+  // Build slide panel
+  buildSlidePanel(dayId);
+  buildExamplePanel(dayId);
+  buildPlanPanel(dayId);
+}
+
+function switchDayTab(dayId, tab, btn) {
+  document.querySelectorAll('#day-' + dayId + ' .day-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#day-' + dayId + ' .day-tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(dayId + '-' + tab).classList.add('active');
+}
+
+function showDayTab(dayId, tab) {
+  showDay(dayId);
+  setTimeout(() => {
+    const tabs = document.querySelectorAll('#day-' + dayId + ' .day-tab');
+    const panels = document.querySelectorAll('#day-' + dayId + ' .day-tab-panel');
+    tabs.forEach(t => t.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    const tabNames = ['steps','slide','example','plan'];
+    const idx = tabNames.indexOf(tab);
+    if (idx >= 0 && tabs[idx]) { tabs[idx].classList.add('active'); panels[idx].classList.add('active'); }
+  }, 50);
+}
+
+const slideData = {
+  d1:{tag:"Day 1 — Lesson Design Project",title:"Choose your standard & break it down",sub:"Today you'll pick your topic and dig into what it actually means before you start planning.",steps:[{n:"Step 1",h:"Select & copy your standard",d:"Choose one standard from the class list. Write the full standard number and text on your planning page."},{n:"Step 2",h:"Find the key words",d:"Identify the important math verbs (what students do) and nouns (what they work with)."},{n:"Step 3",h:"Put it in your own words",d:"What is this standard actually asking students to do? Rewrite it plainly — no jargon."},{n:"Step 4",h:"Identify prior knowledge",d:"What would a student already need to know? Think about vocabulary and earlier skills."},{n:"Step 5",h:"Spot the tricky parts",d:"Where might students get confused or make mistakes? This helps you plan how to teach it."},{n:"Step 6",h:"Write your "I can..." goal",d:"Turn your standard into a student-friendly learning goal using the sentence starter on your planning page."}],footer:"Check the Worked Example tab for a completed model. Planning pages collected at end of class."},
+  d2:{tag:"Day 2 — Lesson Design Project",title:"Plan how you'll teach it",sub:"Use your Day 1 page as a reference. Today you'll map out your full lesson plan and decide how students will take notes.",steps:[{n:"Step 1",h:"Review your Day 1 page",d:"Look back at your standard, "I can..." goal, and tricky parts. These guide every decision today."},{n:"Step 2",h:"Choose your teaching method",d:"Real-world hook, worked example, visual model, or another strategy. Pick one main approach."},{n:"Step 3",h:"Plan your visual or model",d:"Number line, table, diagram, graph? Sketch or describe what students will see or interact with."},{n:"Step 4",h:"Write your lesson outline",d:"Map out the order with time estimates. Aim for 8–10 minutes total."},{n:"Step 5",h:"Plan student notes",d:"What goes in their notes and how is it organized? Left/right columns? Blanks to fill in?"},{n:"Step 6",h:"Assign team roles",d:"Who teaches which part? Who manages the visual? Who watches the time?"}],footer:"Check the Worked Example tab for a completed model. Planning pages collected at end of class."},
+  d3:{tag:"Day 3 — Lesson Design Project",title:"Build your slides & teacher notes",sub:"Take your Day 2 outline and turn it into real slides. Every slide needs content AND speaker notes.",steps:[{n:"Step 1",h:"Review your Day 2 outline",d:"Each section of your plan should become one or two slides. Map it out first."},{n:"Step 2",h:"Plan your slide order",d:"You need at least: title, learning goal, explanation, guided practice, and wrap-up."},{n:"Step 3",h:"Write each slide's content",d:"Key words, visuals, and examples only. Students should listen to you, not read walls of text."},{n:"Step 4",h:"Write speaker notes for every slide",d:"Write in full sentences what you'll say out loud. Include questions you'll ask students."},{n:"Step 5",h:"Plan your student handout",d:"What will students write or fill in during your lesson? Design a notes page."},{n:"Step 6",h:"Do a quick read-through",d:"Read your notes aloud. Do they sound natural? Fix any gaps."}],footer:"Check the Worked Example tab for a completed model. Planning pages collected at end of class."},
+  d4:{tag:"Day 4 — Lesson Design Project",title:"Design your practice activity",sub:"Build the activity students will do during your lesson. Choose any format that gets them practicing the skill from your "I can..." goal.",steps:[{n:"Step 1",h:"Choose your format",d:"I Do/We Do/You Do, partner challenge, card sort, math game, real-world task, or your own idea."},{n:"Step 2",h:"Write your problems or tasks",d:"Create 3–5 problems. At least one should address the tricky part from Day 1."},{n:"Step 3",h:"Write student instructions",d:"Step-by-step directions students can follow on their own — as if you won't be there."},{n:"Step 4",h:"Plan materials & setup",d:"List everything the class needs. Think about how long setup takes."},{n:"Step 5",h:"Write your answer key",d:"Work through every problem and record the answers. You'll need this for the debrief."},{n:"Step 6",h:"Plan your debrief",d:"1–2 minutes to wrap up and connect back to the "I can..." goal."}],footer:"Check the Worked Example tab for a completed model. Planning pages collected at end of class."},
+  d5:{tag:"Day 5 — Lesson Design Project",title:"Build your assessment + optional homework",sub:"Create a check for understanding aligned to your "I can..." goal. Choose any format.",steps:[{n:"Step 1",h:"Choose your format",d:"Exit ticket, short quiz, Google Form, whiteboard check, reflection prompt, or your own idea."},{n:"Step 2",h:"Write your questions or prompts",d:"Create 2–4 questions that connect directly to your "I can..." goal."},{n:"Step 3",h:"Write your answer key",d:"Work through every question and record the answers."},{n:"Step 4",h:"Plan the logistics",d:"How will students receive it? How long? When in your lesson does it happen?"},{n:"Step 5 — Optional",h:"Design the homework",d:"Create original problems OR find a real-world application."},{n:"Step 6 — Optional",h:"Write homework instructions",d:"Clear student-facing directions — how many problems, what to show, connection to the lesson."}],footer:"Check the Worked Example tab. Day 5 may be skipped — check with your teacher. Planning pages collected."},
+  d6:{tag:"Day 6 — Lesson Design Project",title:"Rehearse & final touches",sub:"Run through everything, time your lesson to 8–10 minutes, and fix any last issues before presentation day.",steps:[{n:"Step 1",h:"Do a full run-through",d:"Present start to finish as if the class is watching. One person times, one person teaches."},{n:"Step 2",h:"Check your time",d:"Target 8–10 minutes. A little over is fine. If you're under 8, slow down and add more."},{n:"Step 3",h:"Run through the activity",d:"Practice explaining activity instructions out loud. Know exactly how to set it up."},{n:"Step 4",h:"Check every slide",d:"Read each slide and its speaker notes. Fix typos, unclear wording, incomplete slides."},{n:"Step 5",h:"Check all your materials",d:"Student handout, activity materials, assessment, answer keys — do you have everything?"},{n:"Step 6",h:"Decide if you're ready",d:"What's your biggest strength? What's the one thing you'd still fix?"}],footer:"No planning page to collect today — this is a self-check. Target: 8–10 minutes. Presentation day tomorrow!"}
+};
+
+const exampleData = {
+  d1:{tag:"Day 1 — Worked Example (7.RP.A.2)",title:"Here's what a completed breakdown looks like",sub:"Use this as a model — your standard and answers will be different, but the process is the same.",type:"cards",standard:{label:"The standard (7.RP.A.2)",text:'Recognize and represent <em style="color:#f0c070">proportional relationships</em> between quantities. Decide whether two quantities are in a <em style="color:#f0c070">proportional relationship</em> by testing for equivalent <em style="color:#f0c070">ratios</em>.'},cards:[{l:"Key math verbs",t:"recognize, represent, decide, test"},{l:"Key math nouns",t:"proportional relationship, quantities, equivalent ratios"},{l:"In our own words",t:"Students figure out if two things are changing at the same rate, and show it in different ways (table, graph, equation)."},{l:"Prior knowledge needed",t:'What a ratio is, how to simplify fractions, how to read a table or graph, what "equivalent" means.'},{l:"Where students might get confused",t:'Mixing up proportional and non-proportional relationships, especially when a table doesn't start at (0,0). Also confusing "equivalent ratios" with just "equal numbers."',full:true}],goal:{label:'The "I can..." learning goal',text:"I can tell whether two quantities have a proportional relationship and explain how I know using a table, graph, or equation.",type:"green"}},
+  d2:{tag:"Day 2 — Worked Example (7.RP.A.2)",title:"Here's what a completed Day 2 plan looks like",sub:"Same standard from Day 1 — notice how the teaching choices connect back to the breakdown they did yesterday.",type:"cards",standard:{label:'Their "I can..." goal from Day 1',text:"I can tell whether two quantities have a proportional relationship and explain how I know using a table, graph, or equation."},cards:[{l:"Teaching method chosen",t:"Real-world hook first — use a recipe doubling scenario to show proportional relationships, then connect it to a table and graph."},{l:"Visual or model",t:"A two-column ratio table on the board. Then plot the pairs on a coordinate plane to show the straight line through the origin."},{l:"Lesson outline (8–10 min)",t:"(2 min) Hook — recipe question on the board<br>(3 min) Explain proportional relationships using ratio table<br>(2 min) Show the graph, connect both representations<br>(2 min) Guided practice problem<br>(1 min) Wrap up and preview the activity",full:true},{l:"What students write in notes",t:'Definition of proportional relationship, the ratio table example filled in together, the graph sketch, and the "I can..." goal at the top.'},{l:"Team roles",t:"Jordan — introduces the hook and explains the concept. Riley — draws the table and graph on the board. Both — lead guided practice together."}],goal:{label:"Note structure students will use",text:"Left side: definition + ratio table example  |  Right side: graph sketch + "how I know it's proportional" in their own words",type:"blue"}},
+  d3:{tag:"Day 3 — Worked Example (7.RP.A.2)",title:"Here's what a planned slide deck looks like",sub:"Same team, same standard — notice how each slide maps to a part of their Day 2 lesson outline.",type:"thumbs",thumbs:[{n:"Slide 1",h:"Title slide",d:'Topic name, team names, "I can..." goal at the bottom'},{n:"Slide 2",h:"The hook",d:'Recipe question — "If 2 cups makes 12 cookies, how many for 36?"'},{n:"Slide 3",h:"Explanation",d:"Ratio table built step by step, definition of proportional relationship"},{n:"Slide 4",h:"The graph",d:"Plot ratio pairs, show straight line through origin, connect to table"},{n:"Slide 5",h:"Guided practice",d:'New scenario, students fill in the table together'},{n:"Slide 6",h:"Wrap-up",d:'Restate the "I can..." goal, preview the activity'}],cards:[{l:"Example speaker notes — Slide 3",t:'"OK so let's look at what's actually happening with those cookies. I'm going to build this table on the board — watch how the ratio stays the same every time. That's the key idea: if the ratio between two quantities never changes, we call that a proportional relationship."'},{l:"Student handout plan",t:"Left side: definition box + blank ratio table to fill in. Right side: blank coordinate plane for graph. Bottom: "I can..." goal to copy and guided practice problem."}]},
+  d4:{tag:"Day 4 — Worked Example (7.RP.A.2)",title:"Here's what a completed activity plan looks like",sub:'Same team, same standard — notice how every decision connects back to their "I can..." goal.',type:"cards",standard:{label:'Their "I can..." goal',text:"I can tell whether two quantities have a proportional relationship and explain how I know using a table, graph, or equation."},cards:[{l:"Format chosen",t:"Partner challenge — pairs decide if four real-world scenarios are proportional or not, and justify two ways."},{l:"Problems / tasks",t:"1. A car travels 60 miles every hour. Proportional?<br>2. A pool fills 10 gal in min 1, 15 gal in min 2. Proportional?<br>3. A recipe uses 2 cups per 12 cookies. Proportional?<br>4. A phone plan charges $5 base + $0.10/min. Proportional?"},{l:"Student instructions",t:"With your partner: (1) Read the scenario. (2) Make a table of values. (3) Decide: proportional or not? (4) Write one sentence explaining how you know."},{l:"Materials & setup",t:"One printed handout per pair, pencils, rulers. No special setup — hand out as activity starts."},{l:"Answer key",t:"1. Yes — ratio is always 60 mi/hr.  2. No — rate changes each minute.  3. Yes — ratio is always 1 cup/6 cookies.  4. No — the $5 base fee means it doesn't start at (0,0).",full:true},{l:"Debrief plan",t:'Call on two pairs to share scenario 4 (the tricky one). Ask: "What made that one different?" Restate the "I can..." goal.'}]},
+  d5:{tag:"Day 5 — Worked Example (7.RP.A.2)",title:"Here's what a completed Day 5 plan looks like",sub:'Same team, same standard — notice how every question ties directly back to their "I can..." goal.',type:"cards",standard:{label:'Their "I can..." goal',text:"I can tell whether two quantities have a proportional relationship and explain how I know using a table, graph, or equation."},cards:[{l:"Format chosen",t:"Exit ticket — 3 questions on a half-sheet, handed out in the last 3 minutes of class."},{l:"Questions",t:"1. A car travels 55 miles per hour. Is this proportional? Circle: Yes / No<br>2. Complete the table. Is the relationship proportional? Show how you know.<br>3. Write one sentence explaining what makes a relationship proportional."},{l:"Answer key",t:"1. Yes — constant rate of 55 mi/hr.  2. Ratios are all equal → Yes, proportional.  3. Two quantities are proportional when their ratio is always the same (constant rate of change)."},{l:"Logistics",t:"Hand out half-sheets after the activity debrief. Give 3 minutes. Collect as students exit."}],goal:{label:"Optional homework — real-world application",text:"Find a real-world example of a proportional relationship from your life or the news. Write it as a table and equation and explain why it's proportional. Due next class.",type:"blue"}}
+};
+
+function buildSlidePanel(dayId) {
+  const panel = document.getElementById(dayId + '-slide');
+  if (!panel) return;
+  const d = slideData[dayId];
+  if (!d) return;
+  const stepsHTML = d.steps.map(s => `<div class="ex-step"><div class="ex-step-num">${s.n}</div><div class="ex-step-h">${s.h}</div><div class="ex-step-d">${s.d}</div></div>`).join('');
+  panel.innerHTML = `<div class="ex-slide"><div class="ex-tag">${d.tag}</div><div class="ex-title">${d.title}</div><div class="ex-sub">${d.sub}</div><div class="ex-steps">${stepsHTML}</div><div class="ex-footer">${d.footer}</div></div>`;
+}
+
+function buildExamplePanel(dayId) {
+  const panel = document.getElementById(dayId + '-example');
+  if (!panel) return;
+  const d = exampleData[dayId];
+  if (!d) return;
+  let html = `<div class="ex-slide"><div class="ex-tag">${d.tag}</div><div class="ex-title">${d.title}</div><div class="ex-sub">${d.sub}</div>`;
+  if (d.standard) html += `<div class="ex-standard-box"><div class="ex-card-label">${d.standard.label}</div><div class="ex-card-text">${d.standard.text}</div></div>`;
+  if (d.type === 'thumbs' && d.thumbs) {
+    html += `<div class="ex-thumbs">${d.thumbs.map(t=>`<div class="ex-thumb"><div class="ex-thumb-num">${t.n}</div><div class="ex-thumb-title">${t.h}</div><div class="ex-thumb-note">${t.d}</div></div>`).join('')}</div>`;
+  }
+  if (d.cards) {
+    html += `<div class="ex-card-grid">${d.cards.map(c=>`<div class="ex-card${c.full?' full':''}"><div class="ex-card-label">${c.l}</div><div class="ex-card-text">${c.t}</div></div>`).join('')}</div>`;
+  }
+  if (d.goal) {
+    const barClass = d.goal.type === 'blue' ? 'ex-blue-bar' : 'ex-goal-bar';
+    html += `<div class="${barClass}"><div class="ex-card-label">${d.goal.label}</div><div class="ex-card-text">${d.goal.text}</div></div>`;
+  }
+  html += `</div>`;
+  panel.innerHTML = html;
+}
+
+const planData = {
+  d1:{title:"Day 1 planning page — break down your standard",ref:[{k:"Our standard:",v:"___________________________"},{k:"Trickiest part:",v:"___________________________"},{k:"Prior knowledge needed:",v:"___________________________"},{k:"Team member 2:",v:"___________________________"}],sections:[{label:"Steps 2–5 — Break it down",grid:true,cards:[{q:"Key math verbs (what students do)",stem:"List the action words from the standard — what are students being asked to do?",lines:3},{q:"Key math nouns (what they work with)",stem:"List the math concepts, objects, or vocabulary named in the standard.",lines:3},{q:"In our own words",stem:"Rewrite the standard plainly. What is it actually asking students to do and understand?",lines:3},{q:"Prior knowledge students need",stem:"What vocabulary or earlier skills would a student need before learning this?",lines:3},{q:"Where might students get confused?",stem:"What's the trickiest part of this standard? What mistakes might students make?",lines:3,full:true}]},{label:"Step 6 — Learning goal",single:true,content:`<div class="plan-card"><div class="plan-q">Rewrite your standard as an "I can..." statement a 7th grader would understand:</div><div class="wl" style="margin-top:6px"><div class="wl-line" style="height:28px"></div></div></div>`},{label:'Bonus — First brainstorm (head start on Day 2!)',single:true,content:`<div class="plan-card"><div class="plan-q">How might you teach this? List 2–3 early ideas.</div><div class="plan-stem">Real-world connections, visuals, examples, games. Nothing is final yet.</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div></div></div>`}]},
+  d2:{title:"Day 2 planning page — plan your lesson",ref:[{k:'Our "I can..." goal:',v:"___________________________"},{k:"Teaching method:",v:"___________________________"},{k:"Trickiest part for students:",v:"___________________________"},{k:"Total lesson time:",v:"_______ minutes"}],sections:[{label:"Step 2 — Teaching method",single:true,content:`<div class="plan-card"><div class="plan-q">Which approach will you use to introduce your concept?</div><div class="plan-stem">Circle one: Real-world hook &nbsp;|&nbsp; Worked example &nbsp;|&nbsp; Visual model &nbsp;|&nbsp; Compare & contrast &nbsp;|&nbsp; Ask a question &nbsp;|&nbsp; Our own idea</div><div class="plan-stem">Explain how you'll use this approach:</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div></div></div>`},{label:"Step 3 — Visual or model",single:true,content:`<div class="plan-card"><div class="plan-q">What will students see or work with during your explanation?</div><div class="plan-stem">Describe or sketch — number line, table, graph, diagram, equation, manipulative, etc.</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div></div><div style="border:0.5px solid var(--border);border-radius:8px;height:60px;margin-top:8px;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;color:var(--muted)">Sketch space</span></div></div>`},{label:"Step 4 — Lesson outline",single:true,content:`<div class="plan-card"><div class="plan-q">Map out the order of your lesson with time estimates (aim for 8–10 min total)</div><div style="display:grid;grid-template-columns:48px 1fr;gap:6px 10px;margin-top:4px;align-items:end"><span style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase">Time</span><span style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase">What's happening</span><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div></div></div>`},{label:"Step 5 — Student notes",single:true,content:`<div class="plan-card"><div class="plan-q">What do you want students to write down?</div><div class="plan-stem">Plan what goes in their notes and how it's organized.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px"><div style="border:0.5px solid var(--border);border-radius:8px;padding:8px 10px"><div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Left side of notes</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div></div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:8px 10px"><div style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;margin-bottom:6px">Right side of notes</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div></div></div></div></div>`},{label:"Step 6 — Team roles",grid:true,cards:[{q:"_______________________ will...",lines:2},{q:"_______________________ will...",lines:2},{q:"Shared responsibilities",stem:"What will both team members do together?",lines:2,full:true}]}]},
+  d3:{title:"Day 3 planning page — build your slides & teacher notes",ref:[{k:'Our "I can..." goal:',v:"___________________________"},{k:"Teaching method:",v:"___________________________"},{k:"Lesson outline sections:",v:"___________________________"},{k:"Total lesson time:",v:"_______ minutes"}],sections:[{label:"Steps 2–4 — Slide planner",single:true,content:(()=>{let s='<div class="plan-card"><div class="plan-q">Plan 4–6 slides — what goes on each slide and what you'll say out loud</div><div style="display:grid;grid-template-columns:30px 1fr 1fr;gap:6px;margin:8px 0 4px;padding:0 2px"><span style="font-size:10px;font-weight:500;text-transform:uppercase;color:var(--muted)">#</span><span style="font-size:10px;font-weight:500;text-transform:uppercase;color:var(--muted)">Slide content</span><span style="font-size:10px;font-weight:500;text-transform:uppercase;color:var(--muted)">Speaker notes</span></div>';const labels=['Title & goal','Hook / intro','Explanation','Visual or model','Guided practice','Wrap-up'];for(let i=0;i<6;i++){s+=`<div style="display:grid;grid-template-columns:30px 1fr 1fr;gap:8px;align-items:stretch;margin-bottom:8px"><div style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#f8f4ef;border:0.5px solid var(--border);font-size:12px;font-weight:500;color:var(--navy)">${i+1}</div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px"><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:5px">${labels[i]}</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div></div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px"><div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:5px">What you'll say</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div></div></div></div>`;}s+='</div>';return s;})()},{label:"Step 5 — Student handout plan",grid:true,cards:[{q:"What will students write or fill in?",stem:"Definitions, blanks, a table, a graph, the practice problem?",lines:3},{q:"How is it organized?",stem:"Does it match your slides or have its own structure? Sketch the layout if it helps.",lines:3}]},{label:"Step 6 — Read-through checklist",single:true,content:`<div class="plan-card"><div class="plan-stem" style="margin-bottom:8px">Read your notes aloud and check each one:</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 16px"><div style="font-size:12px;color:var(--navy)">Every slide has speaker notes &nbsp; ☐ Yes &nbsp; ☐ Not yet</div><div style="font-size:12px;color:var(--navy)">Notes sound natural out loud &nbsp; ☐ Yes &nbsp; ☐ Not yet</div><div style="font-size:12px;color:var(--navy)">Slides aren't too wordy &nbsp; ☐ Yes &nbsp; ☐ Not yet</div><div style="font-size:12px;color:var(--navy)">Guided practice problem included &nbsp; ☐ Yes &nbsp; ☐ Not yet</div><div style="font-size:12px;color:var(--navy)">"I can..." goal is on a slide &nbsp; ☐ Yes &nbsp; ☐ Not yet</div><div style="font-size:12px;color:var(--navy)">Handout matches the lesson &nbsp; ☐ Yes &nbsp; ☐ Not yet</div></div></div>`}]},
+  d4:{title:"Day 4 planning page — design your practice activity",ref:[{k:'Our "I can..." goal:',v:"___________________________"},{k:"Trickiest part for students:",v:"___________________________"},{k:"Time available for activity:",v:"_______ minutes"},{k:"Activity comes after slide:",v:"_______"}],sections:[{label:"Step 1 — Activity format",single:true,content:`<div class="plan-card"><div class="plan-q">Which format will you use? Circle one or describe your own below:</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0"><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">I Do / We Do / You Do</div><div style="font-size:10px;color:var(--muted)">Model, together, solo</div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Partner challenge</div><div style="font-size:10px;color:var(--muted)">Work through problems in pairs</div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Card sort</div><div style="font-size:10px;color:var(--muted)">Match, sort, or sequence</div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Math game</div><div style="font-size:10px;color:var(--muted)">Gameplay that builds skill</div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Real-world task</div><div style="font-size:10px;color:var(--muted)">Apply skill to a scenario</div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Our own idea</div><div style="font-size:10px;color:var(--muted)">Describe below</div></div></div><div class="plan-stem">Why does this format fit your concept?</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div></div></div>`},{label:"Step 2 — Problems or tasks",single:true,content:`<div class="plan-card"><div class="plan-q">Write 3–5 problems or tasks (at least one must target the tricky part from Day 1)</div><div style="display:grid;grid-template-columns:22px 1fr;gap:6px 10px;margin-top:4px;align-items:end"><span style="font-size:12px;color:var(--muted)">1.</span><div class="wl-line"></div><span style="font-size:12px;color:var(--muted)">2.</span><div class="wl-line"></div><span style="font-size:12px;color:var(--muted)">3.</span><div class="wl-line"></div><span style="font-size:12px;color:var(--muted)">4.</span><div class="wl-line"></div><span style="font-size:12px;color:var(--muted)">5.</span><div class="wl-line"></div></div></div>`},{label:"Steps 3 & 4 — Instructions & materials",grid:true,cards:[{q:"Student instructions",stem:"Step-by-step directions students can follow on their own.",lines:4},{q:"Materials & setup",stem:"What does the class need and how long will setup take?",lines:4}]},{label:"Step 5 — Answer key",single:true,content:`<div class="plan-card"><div class="plan-q">Work through every problem and record your answers</div><div style="display:grid;grid-template-columns:22px 1fr;gap:6px 10px;margin-top:4px;align-items:end"><span style="font-size:12px;color:var(--muted)">1.</span><div class="wl-line"></div><span style="font-size:12px;color:var(--muted)">2.</span><div class="wl-line"></div><span style="font-size:12px;color:var(--muted)">3.</span><div class="wl-line"></div><span style="font-size:12px;color:var(--muted)">4.</span><div class="wl-line"></div><span style="font-size:12px;color:var(--muted)">5.</span><div class="wl-line"></div></div></div>`},{label:"Step 6 — Debrief plan",single:true,content:`<div class="plan-card"><div class="plan-q">How will you wrap up the activity? (1–2 minutes)</div><div class="plan-stem">What will you ask or show? How does it connect back to the "I can..." goal?</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div></div></div>`}]},
+  d5:{title:"Day 5 planning page — build your assessment",ref:[{k:'Our "I can..." goal:',v:"___________________________"},{k:"Standard:",v:"___________________________"},{k:"Trickiest part for students:",v:"___________________________"},{k:"Time left after activity:",v:"_______ minutes"}],sections:[{label:"Step 1 — Assessment format",single:true,content:`<div class="plan-card"><div class="plan-q">Which format will you use? Circle one or describe your own below:</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0"><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Exit ticket</div><div style="font-size:10px;color:var(--muted)">1–3 quick questions</div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Short quiz</div><div style="font-size:10px;color:var(--muted)">4–6 questions</div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Google Form</div><div style="font-size:10px;color:var(--muted)">Digital check</div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Whiteboard check</div><div style="font-size:10px;color:var(--muted)">Hold up answers</div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Reflection prompt</div><div style="font-size:10px;color:var(--muted)">Written response</div></div><div style="border:0.5px solid var(--border);border-radius:8px;padding:7px 9px;text-align:center"><div style="font-size:11px;font-weight:500;color:var(--navy)">Our own idea</div><div style="font-size:10px;color:var(--muted)">Describe below</div></div></div><div class="plan-stem">Why does this format fit your lesson and your time?</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div></div></div>`},{label:"Step 2 — Questions or prompts",single:true,content:`<div class="plan-card"><div class="plan-q">Write 2–4 questions that connect directly to your "I can..." goal</div><div style="display:grid;grid-template-columns:22px 1fr;gap:8px 10px;margin-top:4px;align-items:start"><span style="font-size:12px;color:var(--muted);padding-top:2px">1.</span><div class="wl"><div class="wl-line"></div><div class="wl-line"></div></div><span style="font-size:12px;color:var(--muted);padding-top:2px">2.</span><div class="wl"><div class="wl-line"></div><div class="wl-line"></div></div><span style="font-size:12px;color:var(--muted);padding-top:2px">3.</span><div class="wl"><div class="wl-line"></div><div class="wl-line"></div></div><span style="font-size:12px;color:var(--muted);padding-top:2px">4.</span><div class="wl"><div class="wl-line"></div><div class="wl-line"></div></div></div></div>`},{label:"Steps 3 & 4 — Answer key & logistics",grid:true,cards:[{q:"Answer key",stem:"Work through every question and write the answers here.",lines:4},{q:"Logistics",stem:"How and when will students receive and complete this?",lines:4}]},{label:"Steps 5 & 6 — Optional homework",single:true,content:`<div class="plan-card" style="border-color:#e9d5ff"><div style="display:inline-block;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;padding:2px 8px;border-radius:20px;background:#f3e8ff;color:#6b21a8;margin-bottom:8px">Only if assigned</div><div class="plan-q" style="margin-bottom:6px">Homework type — circle one: &nbsp; Create original problems &nbsp;|&nbsp; Real-world application</div><div class="plan-stem">Student-facing homework instructions:</div><div class="wl" style="margin-bottom:10px"><div class="wl-line"></div><div class="wl-line"></div><div class="wl-line"></div></div><div class="plan-stem">Answer key or example response:</div><div class="wl"><div class="wl-line"></div><div class="wl-line"></div></div></div>`}]},
+  d6:{title:"Day 6 self-check — rehearse & final touches",isself:true,ref:[{k:"Our standard:",v:"___________________________"},{k:'Our "I can..." goal:',v:"___________________________"},{k:"Presentation date:",v:"___________________________"},{k:"Period:",v:"___________________________"}],sections:[{label:'Timed run-through — Target: 8–10 min',single:true,content:`<div class="plan-card"><div class="plan-q">Run your full lesson and record how long each part takes</div><div class="plan-stem">One person presents, one person times. A little over 10 min is fine — aim to stay under 13.</div><div style="display:grid;grid-template-columns:60px 1fr 80px;gap:8px;padding:4px 0;margin-bottom:4px"><span style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase">Planned</span><span style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase">Section</span><span style="font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;text-align:right">Actual</span></div>${["Introduction & hook","Explanation & visual","Guided practice","Student activity","Debrief & wrap-up"].map(s=>`<div style="display:grid;grid-template-columns:60px 1fr 80px;gap:8px;align-items:center;padding:5px 0;border-bottom:0.5px solid var(--border)"><span style="font-family:monospace;font-size:11px;color:var(--muted)">___ min</span><span style="font-size:12px;color:var(--navy)">${s}</span><span style="font-family:monospace;font-size:11px;color:var(--muted);text-align:right">___ min</span></div>`).join('')}<div style="display:grid;grid-template-columns:60px 1fr 80px;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--border);margin-top:4px"><span style="font-size:11px;font-weight:500;color:var(--navy)">TOTAL</span><span style="font-size:11px;color:var(--muted);font-style:italic">Goal: 8–10 min · Grace to ~13 min</span><span style="font-size:11px;font-weight:500;color:var(--navy);text-align:right">___ min</span></div></div>`},{label:"Final checklist",single:true,content:`<div class="plan-card"><div style="display:flex;flex-direction:column;gap:6px">${["We ran through the full lesson start to finish","Our lesson is 8–10 minutes (or close to it)","Every slide has speaker notes and we know what to say","We can explain activity instructions without reading them","We have our student handout printed or ready","We have all activity materials ready","We have our assessment ready to hand out","We have answer keys for the activity and assessment","We checked for typos, unclear wording, and slide order","Both team members know their role and what they're saying"].map(item=>`<div style="display:grid;grid-template-columns:80px 1fr;gap:10px;align-items:center;padding:7px 10px;border:0.5px solid var(--border);border-radius:8px;font-size:12px"><div style="display:flex;gap:10px;color:var(--muted)">☐ Yes &nbsp; ☐ No</div><div>${item}</div></div>`).join('')}</div></div>`},{label:"What still needs work",grid:true,cards:[{q:"Our biggest strength going in",lines:3},{q:"The one thing we'd still fix",lines:3},{q:"Anything we still need to get or print before tomorrow",lines:2,full:true}]}]}
+};
+
+function buildPlanPanel(dayId) {
+  const panel = document.getElementById(dayId + '-plan');
+  if (!panel) return;
+  const d = planData[dayId];
+  if (!d) return;
+  let html = `<button class="print-btn" onclick="window.print()">🖨 Print this planning page</button>`;
+  html += `<div class="plan-page">`;
+  html += `<div class="plan-header"><div><div class="plan-title">${d.title}</div><div class="plan-meta">Lesson Design Project</div></div><div><div class="plan-name-row">Name(s): ________________________</div><div class="plan-name-row" style="margin-top:5px">Period: _______&nbsp;&nbsp;Date: __________</div></div></div>`;
+  // Ref banner
+  if (!d.isself) {
+    html += `<div class="ref-banner"><div class="ref-banner-label">From your previous pages — fill this in before you start</div><div class="ref-row">`;
+    d.ref.forEach(r => { html += `<div class="ref-cell"><strong>${r.k}</strong> ${r.v}</div>`; });
+    html += `</div></div>`;
+  }
+  // Sections
+  d.sections.forEach(sec => {
+    html += `<div class="plan-section"><div class="plan-section-label">${sec.label}</div>`;
+    if (sec.single && sec.content) {
+      html += sec.content;
+    } else if (sec.grid && sec.cards) {
+      html += `<div class="plan-card-grid">`;
+      sec.cards.forEach(c => {
+        html += `<div class="plan-card${c.full?' plan-card-full':''}">`;
+        if (c.q) html += `<div class="plan-q">${c.q}</div>`;
+        if (c.stem) html += `<div class="plan-stem">${c.stem}</div>`;
+        if (c.lines) {
+          html += `<div class="wl">`;
+          for (let i = 0; i < c.lines; i++) html += `<div class="wl-line"></div>`;
+          html += `</div>`;
+        }
+        html += `</div>`;
+      });
+      html += `</div>`;
+    }
+    html += `</div>`;
+  });
+  // Collect bar
+  if (d.isself) {
+    html += `<div style="display:flex;align-items:center;justify-content:space-between;margin-top:1rem;padding-top:.85rem;border-top:0.5px solid var(--border)"><div style="font-size:12px;color:var(--muted)">This page is for you — it won't be collected. Good luck tomorrow!</div><div style="font-size:11px;border:0.5px solid var(--border);border-radius:8px;padding:3px 10px;color:var(--muted)">Target: 8–10 min</div></div>`;
+  } else {
+    html += `<div class="collect-bar"><div class="collect-left">Turn this page in before you leave today.</div><div class="collect-stamp">Teacher check: ____________</div></div>`;
+  }
+  html += `</div>`;
+  panel.innerHTML = html;
+}
+
+// Initialize tabs on day pages when they become active
+const origShowDay = window.showDay;
+window.showDay = function(id) {
+  origShowDay(id);
+  buildDayTabs(id);
+};
+
+// Also init on nav clicks that might lead to day pages
+['d1','d2','d3','d4','d5','d6','d7'].forEach(id => {
+  const el = document.getElementById('day-' + id);
+  if (el) buildDayTabs(id);
+});
+</script>
+
 </body>
 </html>
