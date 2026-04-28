@@ -6,122 +6,142 @@
 <title>Lesson Design Project — 7th Grade Math</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --red: #e63946;
-    --navy: #1d2d44;
-    --cream: #f8f4ef;
-    --gold: #f4a261;
-    --green: #2a9d8f;
-    --light: #ffffff;
-    --border: #ddd8d0;
-    --text: #1d2d44;
-    --muted: #6b7280;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
-
-  /* NAV */
-  nav { background: var(--navy); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; height: 56px; }
-  .nav-brand { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: white; letter-spacing: .05em; }
-  .nav-brand span { color: var(--gold); }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-links button { background: transparent; border: none; color: rgba(255,255,255,.6); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all .2s; }
-  .nav-links button:hover, .nav-links button.active { background: rgba(255,255,255,.1); color: white; }
-
-  /* PAGES */
-  .page { display: none; padding: 2.5rem 2rem; max-width: 960px; margin: 0 auto; }
-  .page.active { display: block; }
-
+  :root{--red:#e63946;--navy:#1d2d44;--cream:#f8f4ef;--gold:#f4a261;--green:#2a9d8f;--border:#ddd8d0;--text:#1d2d44;--muted:#6b7280;--white:#ffffff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
+  nav{background:var(--navy);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;height:56px}
+  .nav-brand{font-family:'Bebas Neue',sans-serif;font-size:22px;color:white;letter-spacing:.05em}
+  .nav-brand span{color:var(--gold)}
+  .nav-links{display:flex;gap:4px;flex-wrap:wrap}
+  .nav-links button{background:transparent;border:none;color:rgba(255,255,255,.6);font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 10px;border-radius:6px;cursor:pointer;transition:all .2s}
+  .nav-links button:hover,.nav-links button.active{background:rgba(255,255,255,.1);color:white}
+  .page{display:none;padding:2.5rem 2rem;max-width:960px;margin:0 auto}
+  .page.active{display:block}
   /* HERO */
-  .hero { background: var(--navy); color: white; padding: 3.5rem 2rem; text-align: center; }
-  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 8vw, 80px); letter-spacing: .03em; line-height: 1; margin-bottom: 1rem; }
-  .hero-title span { color: var(--gold); }
-  .hero-sub { font-size: 16px; color: rgba(255,255,255,.7); max-width: 540px; margin: 0 auto 2rem; line-height: 1.7; }
-  .hero-btn { background: var(--red); color: white; border: none; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 12px 28px; border-radius: 8px; cursor: pointer; transition: all .2s; letter-spacing: .02em; }
-  .hero-btn:hover { background: #c1121f; transform: translateY(-1px); }
-
-  /* SECTION TITLES */
-  .section-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--red); margin-bottom: .5rem; }
-  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: .03em; color: var(--navy); margin-bottom: .5rem; }
-  .section-sub { font-size: 14px; color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
-
+  .hero{background:var(--navy);color:white;padding:3.5rem 2rem;text-align:center}
+  .hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+  .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,8vw,80px);letter-spacing:.03em;line-height:1;margin-bottom:1rem}
+  .hero-title span{color:var(--gold)}
+  .hero-sub{font-size:16px;color:rgba(255,255,255,.7);max-width:540px;margin:0 auto 2rem;line-height:1.7}
+  .btn-primary{background:var(--red);color:white;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:12px 28px;border-radius:8px;cursor:pointer;transition:all .2s;letter-spacing:.02em;display:inline-block}
+  .btn-primary:hover{background:#c1121f;transform:translateY(-1px)}
+  .btn-secondary{background:var(--navy);color:white;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:12px 28px;border-radius:8px;cursor:pointer;transition:all .2s;display:inline-block}
+  .btn-secondary:hover{background:#2a3f5f;transform:translateY(-1px)}
+  /* SECTION */
+  .section-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem}
+  .section-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.03em;color:var(--navy);margin-bottom:.5rem}
+  .section-sub{font-size:14px;color:var(--muted);margin-bottom:2rem;line-height:1.6}
   /* DAY CARDS */
-  .days-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 2.5rem; }
-  .day-card { background: white; border: 1.5px solid var(--border); border-radius: 12px; padding: 20px; transition: all .2s; cursor: default; }
-  .day-card:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(29,45,68,.08); }
-  .day-num { font-family: 'Bebas Neue', sans-serif; font-size: 13px; letter-spacing: .1em; color: var(--red); margin-bottom: 6px; }
-  .day-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 6px; line-height: 1.4; }
-  .day-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-  .day-tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 20px; margin-top: 10px; }
-  .tag-collect { background: #fef3c7; color: #92400e; }
-  .tag-present { background: #dcfce7; color: #166534; }
-  .tag-optional { background: #f3e8ff; color: #6b21a8; }
-
-  /* RUBRIC TABLE */
-  .rubric-wrap { background: white; border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 2.5rem; }
-  .rubric-top { background: var(--navy); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
-  .rubric-top-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .05em; color: white; }
-  .rubric-top-pts { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gold); }
-  table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  th { padding: 8px 12px; text-align: left; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); border-bottom: 1.5px solid var(--border); }
-  th.c3 { background: #f0fdf4; } th.c2 { background: #fefce8; } th.c1 { background: #fff1f2; }
-  td { padding: 10px 12px; border-bottom: 1px solid #f0ede8; vertical-align: top; line-height: 1.5; }
-  td:first-child { font-weight: 500; color: var(--navy); }
-  td.c3 { background: #f0fdf4; color: #166534; font-size: 11px; }
-  td.c2 { background: #fefce8; color: #92400e; font-size: 11px; }
-  td.c1 { background: #fff1f2; color: #9f1239; font-size: 11px; }
-  td.score { text-align: center; font-family: 'DM Mono', monospace; font-weight: 500; color: var(--navy); }
-  tr:last-child td { border-bottom: none; }
-  .cat-day { font-size: 10px; font-weight: 400; color: var(--muted); display: block; font-style: italic; }
-  .rubric-footer { padding: 14px 20px; border-top: 1.5px solid var(--border); display: flex; justify-content: flex-end; align-items: center; gap: 20px; }
-  .rubric-footer span { font-size: 12px; color: var(--muted); }
-  .rubric-footer strong { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--navy); letter-spacing: .05em; }
-
-  /* STANDARD SPINNER */
-  .spinner-wrap { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
-  .wheel-container { position: relative; width: 380px; height: 380px; }
-  canvas#wheel { border-radius: 50%; box-shadow: 0 12px 40px rgba(29,45,68,.2); }
-  .wheel-pointer { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 28px solid var(--red); filter: drop-shadow(0 2px 4px rgba(0,0,0,.3)); z-index: 10; }
-  .spin-btn { background: var(--red); color: white; border: none; font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: .08em; padding: 14px 40px; border-radius: 10px; cursor: pointer; transition: all .2s; box-shadow: 0 4px 12px rgba(230,57,70,.3); }
-  .spin-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(230,57,70,.4); }
-  .spin-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-  .result-box { background: white; border: 2px solid var(--navy); border-radius: 12px; padding: 20px 28px; text-align: center; min-width: 320px; display: none; }
-  .result-box.show { display: block; animation: popIn .3s ease; }
-  @keyframes popIn { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .result-code { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--red); letter-spacing: .05em; }
-  .result-text { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.6; max-width: 280px; margin-left: auto; margin-right: auto; }
-  .result-strand { font-family: 'DM Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--navy); margin-top: 8px; }
-  .spin-again { background: transparent; border: 1.5px solid var(--border); color: var(--navy); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 20px; border-radius: 8px; cursor: pointer; margin-top: 12px; transition: all .2s; }
-  .spin-again:hover { border-color: var(--navy); }
-
-  /* STRAND FILTER */
-  .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
-  .filter-btn { background: white; border: 1.5px solid var(--border); color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px; cursor: pointer; transition: all .2s; }
-  .filter-btn:hover { border-color: var(--navy); color: var(--navy); }
-  .filter-btn.active { background: var(--navy); border-color: var(--navy); color: white; }
-  .filter-btn.fn { } .filter-btn.fa { } .filter-btn.fgm { } .filter-btn.fd { }
-
-  /* STANDARDS LIST */
-  .standards-list { display: flex; flex-direction: column; gap: 6px; }
-  .std-item { background: white; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 16px; display: grid; grid-template-columns: 80px 1fr 60px; gap: 12px; align-items: center; transition: all .2s; }
-  .std-item:hover { border-color: var(--navy); }
-  .std-item.hidden { display: none; }
-  .std-code { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--navy); }
-  .std-desc { font-size: 13px; color: var(--text); line-height: 1.4; }
-  .std-badge { font-size: 10px; font-weight: 600; text-align: center; padding: 3px 8px; border-radius: 20px; }
-  .badge-n { background: #dbeafe; color: #1e40af; }
-  .badge-a { background: #dcfce7; color: #166534; }
-  .badge-gm { background: #fef3c7; color: #92400e; }
-  .badge-d { background: #fce7f3; color: #9d174d; }
-  .recommend-tag { font-size: 10px; color: #15803d; background: #dcfce7; padding: 2px 7px; border-radius: 20px; font-weight: 500; display: inline-block; margin-top: 3px; }
-
-  /* PRINT */
-  @media print {
-    nav { display: none; }
-    .page { display: block !important; padding: 1rem; }
-    .hero { padding: 2rem 1rem; }
-  }
+  .days-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:2.5rem}
+  .day-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:20px;transition:all .2s;cursor:pointer}
+  .day-card:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 8px 24px rgba(29,45,68,.08)}
+  .day-num{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--red);margin-bottom:6px}
+  .day-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:6px;line-height:1.4}
+  .day-desc{font-size:12px;color:var(--muted);line-height:1.5}
+  .day-tag{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;margin-top:10px}
+  .tag-collect{background:#fef3c7;color:#92400e}
+  .tag-present{background:#dcfce7;color:#166534}
+  .tag-optional{background:#f3e8ff;color:#6b21a8}
+  /* RUBRIC */
+  .rubric-wrap{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:2.5rem}
+  .rubric-top{background:var(--navy);padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+  .rubric-top-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.05em;color:white}
+  .rubric-top-pts{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold)}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th{padding:8px 12px;text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);border-bottom:1.5px solid var(--border)}
+  th.c3{background:#f0fdf4}th.c2{background:#fefce8}th.c1{background:#fff1f2}
+  td{padding:10px 12px;border-bottom:1px solid #f0ede8;vertical-align:top;color:var(--text);line-height:1.5}
+  td:first-child{font-weight:500;color:var(--navy)}
+  td.c3{background:#f0fdf4;color:#166534;font-size:11px}
+  td.c2{background:#fefce8;color:#92400e;font-size:11px}
+  td.c1{background:#fff1f2;color:#9f1239;font-size:11px}
+  td.score{text-align:center;font-family:'DM Mono',monospace;font-weight:500;color:var(--navy)}
+  tr:last-child td{border-bottom:none}
+  .cat-day{font-size:10px;font-weight:400;color:var(--muted);display:block;font-style:italic}
+  .rubric-footer{padding:14px 20px;border-top:1.5px solid var(--border);display:flex;justify-content:flex-end;align-items:center;gap:20px}
+  .rubric-footer span{font-size:12px;color:var(--muted)}
+  .rubric-footer strong{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--navy);letter-spacing:.05em}
+  /* SPINNER */
+  .spinner-wrap{display:flex;flex-direction:column;align-items:center;gap:2rem}
+  .wheel-container{position:relative;width:380px;height:380px}
+  canvas#wheel{border-radius:50%;box-shadow:0 12px 40px rgba(29,45,68,.2)}
+  .wheel-pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:28px solid var(--red);filter:drop-shadow(0 2px 4px rgba(0,0,0,.3));z-index:10}
+  .spin-btn{background:var(--red);color:white;border:none;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.08em;padding:14px 40px;border-radius:10px;cursor:pointer;transition:all .2s;box-shadow:0 4px 12px rgba(230,57,70,.3)}
+  .spin-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 20px rgba(230,57,70,.4)}
+  .spin-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+  .result-box{background:white;border:2px solid var(--navy);border-radius:12px;padding:20px 28px;text-align:center;min-width:320px;display:none}
+  .result-box.show{display:block;animation:popIn .3s ease}
+  @keyframes popIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+  .result-code{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--red);letter-spacing:.05em}
+  .result-text{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.6;max-width:280px;margin-left:auto;margin-right:auto}
+  .result-strand{font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--navy);margin-top:8px}
+  .spin-again{background:transparent;border:1.5px solid var(--border);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 20px;border-radius:8px;cursor:pointer;margin-top:12px;transition:all .2s}
+  .spin-again:hover{border-color:var(--navy)}
+  /* STANDARDS */
+  .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem}
+  .filter-btn{background:white;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s}
+  .filter-btn:hover{border-color:var(--navy);color:var(--navy)}
+  .filter-btn.active{background:var(--navy);border-color:var(--navy);color:white}
+  .standards-list{display:flex;flex-direction:column;gap:6px}
+  .std-item{background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 16px;display:grid;grid-template-columns:80px 1fr 60px;gap:12px;align-items:center;transition:all .2s}
+  .std-item:hover{border-color:var(--navy)}
+  .std-item.hidden{display:none}
+  .std-code{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--navy)}
+  .std-desc{font-size:13px;color:var(--text);line-height:1.4}
+  .std-badge{font-size:10px;font-weight:600;text-align:center;padding:3px 8px;border-radius:20px}
+  .badge-n{background:#dbeafe;color:#1e40af}
+  .badge-a{background:#dcfce7;color:#166534}
+  .badge-gm{background:#fef3c7;color:#92400e}
+  .badge-d{background:#fce7f3;color:#9d174d}
+  .recommend-tag{font-size:10px;color:#15803d;background:#dcfce7;padding:2px 7px;border-radius:20px;font-weight:500;display:inline-block;margin-top:3px}
+  /* DAY DETAIL PAGES */
+  .day-detail-header{background:var(--navy);border-radius:12px;padding:24px 28px;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-start}
+  .ddh-left{}
+  .ddh-day{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+  .ddh-title{font-family:'Bebas Neue',sans-serif;font-size:28px;color:white;letter-spacing:.03em;margin-bottom:4px}
+  .ddh-sub{font-size:13px;color:rgba(255,255,255,.65);max-width:500px;line-height:1.5}
+  .ddh-tag{font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;margin-top:8px;display:inline-block}
+  .tag-c{background:rgba(244,162,97,.2);color:var(--gold)}
+  .tag-p{background:rgba(74,222,128,.15);color:#4ade80}
+  .tag-o{background:rgba(167,139,250,.15);color:#a78bfa}
+  /* STEPS */
+  .steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+  .step-card{background:white;border:1.5px solid var(--border);border-radius:10px;padding:14px 16px}
+  .step-num{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--red);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+  .step-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px}
+  .step-desc{font-size:12px;color:var(--muted);line-height:1.5}
+  /* VIDEOS */
+  .videos-section{margin-bottom:1.5rem}
+  .videos-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+  .videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+  .video-card{background:white;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;transition:all .2s}
+  .video-card:hover{border-color:var(--navy);transform:translateY(-1px)}
+  .video-thumb{position:relative;padding-bottom:56.25%;background:#1a1a2e;cursor:pointer}
+  .video-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85}
+  .video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .play-btn{width:48px;height:48px;background:rgba(230,57,70,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .play-btn svg{fill:white;margin-left:3px}
+  .video-card:hover .play-btn{background:var(--red);transform:scale(1.08)}
+  .video-info{padding:10px 12px}
+  .video-title-text{font-size:12px;font-weight:500;color:var(--navy);margin-bottom:3px;line-height:1.4}
+  .video-note{font-size:11px;color:var(--muted);line-height:1.4}
+  /* BACK BTN */
+  .back-btn{background:transparent;border:1.5px solid var(--border);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 16px;border-radius:8px;cursor:pointer;margin-bottom:1.5rem;transition:all .2s;display:flex;align-items:center;gap:6px}
+  .back-btn:hover{border-color:var(--navy);color:var(--navy)}
+  /* OVERVIEW */
+  .info-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:20px;margin-bottom:1rem}
+  .info-card-title{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--navy);margin-bottom:8px;letter-spacing:.03em}
+  .info-card-text{font-size:13px;color:var(--muted);line-height:1.7}
+  .facts-card{background:var(--navy);border-radius:12px;padding:20px;margin-bottom:1rem}
+  .facts-row{display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:8px;margin-bottom:8px}
+  .facts-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .facts-row strong{color:white;font-weight:500}
+  .schedule-wrap{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.5rem}
+  .schedule-top{background:var(--navy);padding:12px 20px;font-family:'Bebas Neue',sans-serif;font-size:18px;color:white;letter-spacing:.03em}
+  .schedule-row{display:grid;grid-template-columns:80px 1fr 130px;gap:12px;padding:12px 20px;border-bottom:1px solid #f0ede8;align-items:center;font-size:13px}
+  .schedule-row:last-child{border-bottom:none}
+  .sched-day{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--red)}
+  .sched-due{font-size:11px;color:var(--muted);text-align:right}
 </style>
 </head>
 <body>
@@ -131,6 +151,7 @@
   <div class="nav-links">
     <button class="active" onclick="showPage('home')">Home</button>
     <button onclick="showPage('overview')">Overview</button>
+    <button onclick="showPage('days')">Daily Plans</button>
     <button onclick="showPage('standards')">Standards</button>
     <button onclick="showPage('spinner')">Spin to Pick</button>
     <button onclick="showPage('rubric')">Rubric</button>
@@ -143,24 +164,23 @@
     <div class="hero-eyebrow">7th Grade Math · Lesson Design Project</div>
     <div class="hero-title">You're the <span>Teacher</span> Now.</div>
     <div class="hero-sub">Plan, build, and teach a real math lesson to your class. Choose a standard, design your slides, create an activity, and present it live.</div>
-    <button class="hero-btn" onclick="showPage('overview')">See the Project →</button>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn-primary" onclick="showPage('overview')">See the Project →</button>
+      <button class="btn-secondary" onclick="showPage('spinner')">🎯 Spin to Pick a Standard</button>
+    </div>
   </div>
   <div style="max-width:960px;margin:0 auto;padding:2.5rem 2rem">
     <div class="section-eyebrow">What you'll build</div>
     <div class="section-title">7 Days. 1 Complete Lesson.</div>
-    <div class="section-sub">Each day you build one piece. By Day 7 you'll have a full mini-lesson ready to teach.</div>
+    <div class="section-sub">Each day you build one piece. By Day 7 you'll have a full mini-lesson ready to teach. Click any day to see what's expected.</div>
     <div class="days-grid">
-      <div class="day-card"><div class="day-num">Day 1</div><div class="day-title">Choose & Break Down Your Standard</div><div class="day-desc">Select a 7th grade objective, decode the language, and write your "I can..." goal.</div><span class="day-tag tag-collect">Collect</span></div>
-      <div class="day-card"><div class="day-num">Day 2</div><div class="day-title">Plan Your Lesson</div><div class="day-desc">Choose your teaching method, visual, lesson outline with timing, and team roles.</div><span class="day-tag tag-collect">Collect</span></div>
-      <div class="day-card"><div class="day-num">Day 3</div><div class="day-title">Build Slides & Teacher Notes</div><div class="day-desc">Create 4–6 slides with speaker notes and plan your student handout.</div><span class="day-tag tag-collect">Collect</span></div>
-      <div class="day-card"><div class="day-num">Day 4</div><div class="day-title">Design the Student Activity</div><div class="day-desc">Build a practice activity — game, partner challenge, card sort, or your own idea.</div><span class="day-tag tag-collect">Collect</span></div>
-      <div class="day-card"><div class="day-num">Day 5</div><div class="day-title">Build Your Assessment</div><div class="day-desc">Create a check for understanding and optional homework assignment.</div><span class="day-tag tag-optional">Optional Day</span></div>
-      <div class="day-card"><div class="day-num">Day 6</div><div class="day-title">Rehearse & Final Touches</div><div class="day-desc">Run through your lesson, time it, fix any issues before the big day.</div><span class="day-tag tag-collect">Collect</span></div>
-      <div class="day-card"><div class="day-num">Day 7</div><div class="day-title">Present Your Lesson!</div><div class="day-desc">Teach it live — run the slides, lead the activity, give the assessment.</div><span class="day-tag tag-present">Present</span></div>
-    </div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap">
-      <button class="hero-btn" onclick="showPage('spinner')">🎯 Spin to Pick a Standard</button>
-      <button class="hero-btn" style="background:var(--navy)" onclick="showPage('rubric')">See the Rubric →</button>
+      <div class="day-card" onclick="showDay('d1')"><div class="day-num">Day 1</div><div class="day-title">Choose & Break Down Your Standard</div><div class="day-desc">Select a 7th grade objective, decode the language, and write your "I can..." goal.</div><span class="day-tag tag-collect">Collect</span></div>
+      <div class="day-card" onclick="showDay('d2')"><div class="day-num">Day 2</div><div class="day-title">Plan Your Lesson</div><div class="day-desc">Choose your teaching method, visual, lesson outline with timing, and team roles.</div><span class="day-tag tag-collect">Collect</span></div>
+      <div class="day-card" onclick="showDay('d3')"><div class="day-num">Day 3</div><div class="day-title">Build Slides & Teacher Notes</div><div class="day-desc">Create 4–6 slides with speaker notes and plan your student handout.</div><span class="day-tag tag-collect">Collect</span></div>
+      <div class="day-card" onclick="showDay('d4')"><div class="day-num">Day 4</div><div class="day-title">Design the Student Activity</div><div class="day-desc">Build a practice activity — game, partner challenge, card sort, or your own idea.</div><span class="day-tag tag-collect">Collect</span></div>
+      <div class="day-card" onclick="showDay('d5')"><div class="day-num">Day 5</div><div class="day-title">Build Your Assessment</div><div class="day-desc">Create a check for understanding and optional homework assignment.</div><span class="day-tag tag-optional">Optional Day</span></div>
+      <div class="day-card" onclick="showDay('d6')"><div class="day-num">Day 6</div><div class="day-title">Rehearse & Final Touches</div><div class="day-desc">Run through your lesson, time it to 8–10 minutes, and fix any issues.</div><span class="day-tag tag-collect">Self-check</span></div>
+      <div class="day-card" onclick="showDay('d7')"><div class="day-num">Day 7</div><div class="day-title">Present Your Lesson!</div><div class="day-desc">Teach it live — run the slides, lead the activity, give the assessment.</div><span class="day-tag tag-present">Present</span></div>
     </div>
   </div>
 </div>
@@ -169,58 +189,216 @@
 <div id="overview" class="page">
   <div class="section-eyebrow">Project Overview</div>
   <div class="section-title">Everything You Need to Know</div>
-  <div class="section-sub">Read this before you start. It covers what the project is, how it's graded, and what's due each day.</div>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:2rem">
-    <div style="background:white;border:1.5px solid var(--border);border-radius:12px;padding:20px">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--navy);margin-bottom:8px;letter-spacing:.03em">The Mission</div>
-      <div style="font-size:13px;color:var(--muted);line-height:1.7">Working with a partner, you'll select a 7th grade math standard and design a complete mini-lesson around it. You'll break down the standard, plan how to teach it, build slides with speaker notes, design a student activity, and create a way to check for understanding. On presentation day you'll teach your lesson live to the class.</div>
-    </div>
-    <div style="background:var(--navy);border-radius:12px;padding:20px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1.5rem">
+    <div class="info-card"><div class="info-card-title">The Mission</div><div class="info-card-text">Working with a partner, select a 7th grade math standard and design a complete mini-lesson. Break it down, plan how to teach it, build slides with speaker notes, design a student activity, create an assessment, and on Day 7 teach your lesson live to the class.</div></div>
+    <div class="facts-card">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);margin-bottom:12px;letter-spacing:.03em">Quick Facts</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:8px"><span>Team size</span><span style="color:white;font-weight:500">2 students</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:8px"><span>Lesson length</span><span style="color:white;font-weight:500">10–15 minutes</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:8px"><span>Total points</span><span style="color:white;font-weight:500">24 pts</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.8)"><span>Late penalty</span><span style="color:var(--red);font-weight:500">−3 pts/day</span></div>
+      <div class="facts-row"><span>Team size</span><strong>2 students</strong></div>
+      <div class="facts-row"><span>Lesson length</span><strong>8–10 minutes</strong></div>
+      <div class="facts-row"><span>Total points</span><strong>24 pts</strong></div>
+      <div class="facts-row"><span>Late penalty</span><strong style="color:var(--red)">−3 pts/day</strong></div>
+    </div>
+  </div>
+  <div class="schedule-wrap">
+    <div class="schedule-top">Day-by-Day Schedule</div>
+    <div class="schedule-row"><span class="sched-day">Day 1</span><span>Choose & break down your standard</span><span class="sched-due">Planning page due</span></div>
+    <div class="schedule-row"><span class="sched-day">Day 2</span><span>Plan your lesson</span><span class="sched-due">Planning page due</span></div>
+    <div class="schedule-row"><span class="sched-day">Day 3</span><span>Build your slides & teacher notes</span><span class="sched-due">Planning page due</span></div>
+    <div class="schedule-row"><span class="sched-day">Day 4</span><span>Design the student activity</span><span class="sched-due">Planning page due</span></div>
+    <div class="schedule-row"><span class="sched-day">Day 5</span><span>Build your assessment <span style="font-size:10px;color:#9333ea;background:#f3e8ff;padding:1px 6px;border-radius:10px;margin-left:4px">Optional</span></span><span class="sched-due">If assigned</span></div>
+    <div class="schedule-row"><span class="sched-day">Day 6</span><span>Rehearse & final touches</span><span class="sched-due">Self-check</span></div>
+    <div class="schedule-row"><span class="sched-day" style="color:var(--green)">Day 7</span><span style="font-weight:500">Present your lesson! 🎉</span><span class="sched-due" style="color:var(--green);font-weight:500">Presentation day</span></div>
+  </div>
+  <p style="font-size:12px;color:var(--muted);font-style:italic">Note: Day 5 may be skipped depending on class time. Your teacher will let you know.</p>
+</div>
+
+<!-- DAILY PLANS (index) -->
+<div id="days" class="page">
+  <div class="section-eyebrow">Daily Plans</div>
+  <div class="section-title">What To Do Each Day</div>
+  <div class="section-sub">Click any day to see the full steps, what to turn in, and reference videos.</div>
+  <div class="days-grid">
+    <div class="day-card" onclick="showDay('d1')"><div class="day-num">Day 1</div><div class="day-title">Choose & Break Down Your Standard</div><div class="day-desc">Decode the standard, identify key words, write your "I can..." goal.</div><span class="day-tag tag-collect">Collect</span></div>
+    <div class="day-card" onclick="showDay('d2')"><div class="day-num">Day 2</div><div class="day-title">Plan Your Lesson</div><div class="day-desc">Teaching method, visual, timed outline, note structure, team roles.</div><span class="day-tag tag-collect">Collect</span></div>
+    <div class="day-card" onclick="showDay('d3')"><div class="day-num">Day 3</div><div class="day-title">Build Slides & Teacher Notes</div><div class="day-desc">4–6 slides with full speaker notes and student handout plan.</div><span class="day-tag tag-collect">Collect</span></div>
+    <div class="day-card" onclick="showDay('d4')"><div class="day-num">Day 4</div><div class="day-title">Design the Student Activity</div><div class="day-desc">Activity format, problems, instructions, answer key, debrief plan.</div><span class="day-tag tag-collect">Collect</span></div>
+    <div class="day-card" onclick="showDay('d5')"><div class="day-num">Day 5</div><div class="day-title">Build Your Assessment</div><div class="day-desc">Format, questions, answer key, logistics, optional homework.</div><span class="day-tag tag-optional">Optional</span></div>
+    <div class="day-card" onclick="showDay('d6')"><div class="day-num">Day 6</div><div class="day-title">Rehearse & Final Touches</div><div class="day-desc">Full run-through, timed at 8–10 min, checklist, final fixes.</div><span class="day-tag tag-collect">Self-check</span></div>
+    <div class="day-card" onclick="showDay('d7')"><div class="day-num">Day 7</div><div class="day-title">Present Your Lesson!</div><div class="day-desc">Teach live, lead activity, give assessment, audience fills out feedback forms.</div><span class="day-tag tag-present">Present</span></div>
+  </div>
+</div>
+
+<!-- DAY DETAIL PAGES -->
+<div id="day-d1" class="page">
+  <button class="back-btn" onclick="showPage('days')">← Back to all days</button>
+  <div class="day-detail-header"><div class="ddh-left"><div class="ddh-day">Day 1</div><div class="ddh-title">Choose & Break Down Your Standard</div><div class="ddh-sub">Pick your 7th grade objective, decode the language, and write a student-friendly "I can..." goal.</div><span class="ddh-tag tag-c">Planning page collected</span></div></div>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">Step 1</div><div class="step-title">Select & copy your standard</div><div class="step-desc">Choose one standard from the class list. Write the full standard number and text on your planning page.</div></div>
+    <div class="step-card"><div class="step-num">Step 2</div><div class="step-title">Find the key words</div><div class="step-desc">Identify the important math verbs (what students do) and nouns (what they work with). List them separately.</div></div>
+    <div class="step-card"><div class="step-num">Step 3</div><div class="step-title">Put it in your own words</div><div class="step-desc">What is this standard actually asking students to do and understand? Rewrite it plainly — no jargon.</div></div>
+    <div class="step-card"><div class="step-num">Step 4</div><div class="step-title">Identify prior knowledge</div><div class="step-desc">What would a student already need to know to learn this? Think about vocabulary and earlier skills.</div></div>
+    <div class="step-card"><div class="step-num">Step 5</div><div class="step-title">Spot the tricky parts</div><div class="step-desc">Where might students get confused or make mistakes? This will help you plan how to teach it.</div></div>
+    <div class="step-card"><div class="step-num">Step 6</div><div class="step-title">Write your "I can..." goal</div><div class="step-desc">Turn your standard into a student-friendly learning goal using the sentence starter on your planning page.</div></div>
+  </div>
+  <div class="videos-section">
+    <div class="videos-label">Reference videos for Day 1</div>
+    <div class="videos-grid">
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=Lo7v-dTN-3Y')"><img src="https://img.youtube.com/vi/Lo7v-dTN-3Y/hqdefault.jpg" alt="An Overview of Unpacking the Standards"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">An Overview of Unpacking the Standards</div><div class="video-note">Clean overview of how to decode a standard — good starting point</div></div></div>
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=_QDMaoWrELg')"><img src="https://img.youtube.com/vi/_QDMaoWrELg/hqdefault.jpg" alt="How to Unpack a Math Standard"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">How to Unpack a Math Standard: The Simplest Way</div><div class="video-note">Math-specific — shows verb/noun identification and "I can" goal writing</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="day-d2" class="page">
+  <button class="back-btn" onclick="showPage('days')">← Back to all days</button>
+  <div class="day-detail-header"><div class="ddh-left"><div class="ddh-day">Day 2</div><div class="ddh-title">Plan Your Lesson</div><div class="ddh-sub">Use your Day 1 page to choose your teaching method, visual, build a timed outline, plan student notes, and assign team roles.</div><span class="ddh-tag tag-c">Planning page collected</span></div></div>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">Step 1</div><div class="step-title">Review your Day 1 page</div><div class="step-desc">Look back at your standard, "I can..." goal, and tricky parts. These will guide every decision you make today.</div></div>
+    <div class="step-card"><div class="step-num">Step 2</div><div class="step-title">Choose your teaching method</div><div class="step-desc">How will you introduce and explain the concept? Pick one main approach — real-world hook, worked example, visual model, or your own strategy.</div></div>
+    <div class="step-card"><div class="step-num">Step 3</div><div class="step-title">Plan your visual or model</div><div class="step-desc">What will students see or interact with? A number line, table, diagram, graph? Sketch or describe it.</div></div>
+    <div class="step-card"><div class="step-num">Step 4</div><div class="step-title">Write your lesson outline</div><div class="step-desc">Map out the order of your lesson with time estimates. Aim for 8–10 minutes total.</div></div>
+    <div class="step-card"><div class="step-num">Step 5</div><div class="step-title">Plan student notes</div><div class="step-desc">What do you want students to write down? Decide what goes in their notes and how it should be organized.</div></div>
+    <div class="step-card"><div class="step-num">Step 6</div><div class="step-title">Assign team roles</div><div class="step-desc">Who teaches which part? Who manages the visual? Who watches the time? Write it down.</div></div>
+  </div>
+  <div class="videos-section">
+    <div class="videos-label">Reference videos for Day 2</div>
+    <div class="videos-grid">
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=E8o7B5tiyQY')"><img src="https://img.youtube.com/vi/E8o7B5tiyQY/hqdefault.jpg" alt="How to Write a Lesson Plan"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">HOW TO WRITE A LESSON PLAN // Step by Step</div><div class="video-note">Step-by-step walkthrough with a real example — great first watch</div></div></div>
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=XPpW9UVb_90')"><img src="https://img.youtube.com/vi/XPpW9UVb_90/hqdefault.jpg" alt="Lesson Planning: What is Required"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">Lesson Planning: What is Required?</div><div class="video-note">Covers all 12 required components of a strong lesson plan</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="day-d3" class="page">
+  <button class="back-btn" onclick="showPage('days')">← Back to all days</button>
+  <div class="day-detail-header"><div class="ddh-left"><div class="ddh-day">Day 3</div><div class="ddh-title">Build Slides & Teacher Notes</div><div class="ddh-sub">Take your Day 2 outline and turn it into 4–6 real slides. Every slide needs content AND speaker notes — what you'll actually say.</div><span class="ddh-tag tag-c">Planning page collected</span></div></div>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">Step 1</div><div class="step-title">Review your Day 2 outline</div><div class="step-desc">Each section of your plan should become one or two slides. Map it out before you start building.</div></div>
+    <div class="step-card"><div class="step-num">Step 2</div><div class="step-title">Plan your slide order</div><div class="step-desc">You need at least: a title slide, your learning goal, your explanation, a guided practice problem, and a wrap-up.</div></div>
+    <div class="step-card"><div class="step-num">Step 3</div><div class="step-title">Write each slide's content</div><div class="step-desc">Keep slides clean — key words, visuals, and examples only. Students should be listening to you, not reading walls of text.</div></div>
+    <div class="step-card"><div class="step-num">Step 4</div><div class="step-title">Write speaker notes for every slide</div><div class="step-desc">Notes are what you'll say out loud. Write in full sentences. Include how you'll introduce the slide and questions you'll ask.</div></div>
+    <div class="step-card"><div class="step-num">Step 5</div><div class="step-title">Plan your student handout</div><div class="step-desc">What will students write or fill in during your lesson? Design a simple notes page that matches your slides.</div></div>
+    <div class="step-card"><div class="step-num">Step 6</div><div class="step-title">Do a quick read-through</div><div class="step-desc">Read your notes aloud. Do they sound natural? Fix any gaps where you're not sure what to say.</div></div>
+  </div>
+  <div class="videos-section">
+    <div class="videos-label">Reference videos for Day 3</div>
+    <div class="videos-grid">
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=tEF2vNP3S9A')"><img src="https://img.youtube.com/vi/tEF2vNP3S9A/hqdefault.jpg" alt="Do's and Don'ts of Presentation Slides"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">The Do's and Don'ts of Effective Presentation Slides</div><div class="video-note">What makes a good slide vs. a bad one — practical and short</div></div></div>
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=uy6Eu5l0yOk')"><img src="https://img.youtube.com/vi/uy6Eu5l0yOk/hqdefault.jpg" alt="3 Note-Taking Methods in 3 Minutes"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">3 Note-Taking Methods in 3 Minutes</div><div class="video-note">Quick visual overview of 3 different note styles for your student handout</div></div></div>
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=iCjtkxq-QQk')"><img src="https://img.youtube.com/vi/iCjtkxq-QQk/hqdefault.jpg" alt="5 Note-Taking Methods Explained"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">5 Note-Taking Methods Explained</div><div class="video-note">Covers 5 methods and when to use each — great for designing your handout</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="day-d4" class="page">
+  <button class="back-btn" onclick="showPage('days')">← Back to all days</button>
+  <div class="day-detail-header"><div class="ddh-left"><div class="ddh-day">Day 4</div><div class="ddh-title">Design the Student Activity</div><div class="ddh-sub">Build the activity students will do during your lesson. Choose any format that gets them practicing the skill from your "I can..." goal.</div><span class="ddh-tag tag-c">Planning page collected</span></div></div>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">Step 1</div><div class="step-title">Choose your format</div><div class="step-desc">I Do/We Do/You Do, partner challenge, card sort, math game, real-world task, or your own idea. Pick what fits your concept.</div></div>
+    <div class="step-card"><div class="step-num">Step 2</div><div class="step-title">Write your problems or tasks</div><div class="step-desc">Create 3–5 problems that connect to your "I can..." goal. At least one should address the tricky part from Day 1.</div></div>
+    <div class="step-card"><div class="step-num">Step 3</div><div class="step-title">Write student instructions</div><div class="step-desc">Step-by-step directions students can follow on their own — as if you won't be there to explain.</div></div>
+    <div class="step-card"><div class="step-num">Step 4</div><div class="step-title">Plan materials & setup</div><div class="step-desc">List everything the class needs. Think about how long setup takes.</div></div>
+    <div class="step-card"><div class="step-num">Step 5</div><div class="step-title">Write your answer key</div><div class="step-desc">Work through every problem and record the answers. You'll need this for the debrief.</div></div>
+    <div class="step-card"><div class="step-num">Step 6</div><div class="step-title">Plan your debrief</div><div class="step-desc">How will you wrap up the activity in 1–2 minutes and connect back to the "I can..." goal?</div></div>
+  </div>
+  <div class="videos-section">
+    <div class="videos-label">Reference videos for Day 4</div>
+    <div class="videos-grid">
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=izJNqfs_74Y')"><img src="https://img.youtube.com/vi/izJNqfs_74Y/hqdefault.jpg" alt="6 Fun Review Games for Middle School"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">6 Fun Review Games for Middle School Math</div><div class="video-note">6 different engaging formats — great inspiration for picking your activity type</div></div></div>
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=b0tG1T-8uS8')"><img src="https://img.youtube.com/vi/b0tG1T-8uS8/hqdefault.jpg" alt="3 Best Middle School Math Games"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">3 Best Middle School Math Games</div><div class="video-note">Free, practical game formats that work well in a class setting</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="day-d5" class="page">
+  <button class="back-btn" onclick="showPage('days')">← Back to all days</button>
+  <div class="day-detail-header"><div class="ddh-left"><div class="ddh-day">Day 5</div><div class="ddh-title">Build Your Assessment</div><div class="ddh-sub">Create a check for understanding aligned to your "I can..." goal. Choose any format. Optional homework included.</div><span class="ddh-tag tag-o">Optional day</span></div></div>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">Step 1</div><div class="step-title">Choose your format</div><div class="step-desc">Exit ticket, short quiz, Google Form, whiteboard check, reflection prompt, or your own idea. Pick what fits your lesson and time.</div></div>
+    <div class="step-card"><div class="step-num">Step 2</div><div class="step-title">Write your questions or prompts</div><div class="step-desc">Create 2–4 questions that connect directly to your "I can..." goal — not just any 7th grade math.</div></div>
+    <div class="step-card"><div class="step-num">Step 3</div><div class="step-title">Write your answer key</div><div class="step-desc">Work through every question and record the answers. You'll need this to check student work after your presentation.</div></div>
+    <div class="step-card"><div class="step-num">Step 4</div><div class="step-title">Plan the logistics</div><div class="step-desc">How will students receive it? How long will it take? When in your lesson does it happen?</div></div>
+    <div class="step-card"><div class="step-num">Step 5 — Optional</div><div class="step-title">Design the homework</div><div class="step-desc">Create original problems OR find a real-world application. Either works — your choice.</div></div>
+    <div class="step-card"><div class="step-num">Step 6 — Optional</div><div class="step-title">Write homework instructions</div><div class="step-desc">Clear student-facing directions — how many problems, what to show, and how it connects to the lesson.</div></div>
+  </div>
+  <div class="videos-section">
+    <div class="videos-label">Reference videos for Day 5</div>
+    <div class="videos-grid">
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=5vxss-wzzwo')"><img src="https://img.youtube.com/vi/5vxss-wzzwo/hqdefault.jpg" alt="How to Create an Exit Ticket in Google Forms"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">How to Create an Exit Ticket in Google Forms</div><div class="video-note">Quick how-to for building a digital exit ticket — one great format option</div></div></div>
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=3YQwXm2uWAg')"><img src="https://img.youtube.com/vi/3YQwXm2uWAg/hqdefault.jpg" alt="Formative Assessment Explained in 4 Minutes"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">Formative Assessment (Explained in 4 Minutes)</div><div class="video-note">Short overview of different ways to assess — helps you think beyond just quizzes</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="day-d6" class="page">
+  <button class="back-btn" onclick="showPage('days')">← Back to all days</button>
+  <div class="day-detail-header"><div class="ddh-left"><div class="ddh-day">Day 6</div><div class="ddh-title">Rehearse & Final Touches</div><div class="ddh-sub">Run through everything, time your lesson to 8–10 minutes, and fix any last issues before presentation day.</div><span class="ddh-tag tag-c">Self-check — not collected</span></div></div>
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-num">Step 1</div><div class="step-title">Do a full run-through</div><div class="step-desc">Present start to finish as if the class is watching. One person times, one person teaches. Then switch and debrief.</div></div>
+    <div class="step-card"><div class="step-num">Step 2</div><div class="step-title">Check your time</div><div class="step-desc">Target 8–10 minutes. A little over is fine — your teacher will give some grace. If you're under 8, slow down and add more explanation.</div></div>
+    <div class="step-card"><div class="step-num">Step 3</div><div class="step-title">Run through the activity</div><div class="step-desc">Practice explaining the activity instructions out loud. Know exactly how to set it up and transition into it.</div></div>
+    <div class="step-card"><div class="step-num">Step 4</div><div class="step-title">Check every slide</div><div class="step-desc">Read each slide and its speaker notes. Fix typos, unclear wording, or slides that feel incomplete.</div></div>
+    <div class="step-card"><div class="step-num">Step 5</div><div class="step-title">Check all your materials</div><div class="step-desc">Student handout, activity materials, assessment, answer key — do you have everything?</div></div>
+    <div class="step-card"><div class="step-num">Step 6</div><div class="step-title">Decide if you're ready</div><div class="step-desc">What's your biggest strength? What's the one thing you'd still fix if you had more time?</div></div>
+  </div>
+  <div class="videos-section">
+    <div class="videos-label">Reference video for Day 6</div>
+    <div class="videos-grid" style="max-width:320px">
+      <div class="video-card"><div class="video-thumb" onclick="openVideo('https://www.youtube.com/watch?v=tShavGuo0_E')"><img src="https://img.youtube.com/vi/tShavGuo0_E/hqdefault.jpg" alt="Be a More Confident Public Speaker"><div class="video-play"><div class="play-btn"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><div class="video-info"><div class="video-title-text">Be a More Confident Public Speaker</div><div class="video-note">Fun, teen-friendly confidence tips — watch this before your run-through!</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="day-d7" class="page">
+  <button class="back-btn" onclick="showPage('days')">← Back to all days</button>
+  <div class="day-detail-header"><div class="ddh-left"><div class="ddh-day">Day 7</div><div class="ddh-title">Presentation Day — Let's Go!</div><div class="ddh-sub">Today you teach. Every team presents their mini-lesson, leads their activity, and gives their assessment. Target: 8–10 minutes.</div><span class="ddh-tag tag-p">Presentation day</span></div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem">
+    <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:16px">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#166534;margin-bottom:10px">If you are presenting</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;color:#166534">
+        <div>✓ Speak clearly and loud enough for the whole class</div>
+        <div>✓ Use your speaker notes — don't read off the slides</div>
+        <div>✓ Aim for <strong>8–10 minutes</strong> — a little over is okay</div>
+        <div>✓ Explain activity instructions before you start</div>
+        <div>✓ Both team members must present equally</div>
+        <div>✓ Give the assessment and collect it before you sit down</div>
+        <div>✓ Stay calm — you've practiced this. You've got it!</div>
+      </div>
+    </div>
+    <div style="background:#eff6ff;border:1.5px solid #93c5fd;border-radius:10px;padding:16px">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#1e40af;margin-bottom:10px">If you are watching</div>
+      <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;color:#1e40af">
+        <div>👁 Eyes on the presenters — no phones or other work</div>
+        <div>📝 Fill out your feedback form for every presentation</div>
+        <div>🤝 Participate in the activity when it's your turn</div>
+        <div>✏️ Complete the assessment honestly — it's a real check</div>
+        <div>🤫 No side conversations while a team is presenting</div>
+        <div>✋ Raise your hand to ask questions — wait until invited</div>
+        <div>⭐ Be the audience you'd want when it's your turn</div>
       </div>
     </div>
   </div>
-
-  <div style="background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:2rem">
-    <div style="background:var(--navy);padding:12px 20px;font-family:'Bebas Neue',sans-serif;font-size:18px;color:white;letter-spacing:.03em">Day-by-Day Schedule</div>
-    <div style="padding:4px 0">
-      <div style="display:grid;grid-template-columns:80px 1fr 120px;gap:12px;padding:12px 20px;border-bottom:1px solid #f0ede8;align-items:center"><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--red)">Day 1</span><span style="font-size:13px;color:var(--text)">Choose & break down your standard</span><span style="font-size:11px;color:var(--muted);text-align:right">Planning page due</span></div>
-      <div style="display:grid;grid-template-columns:80px 1fr 120px;gap:12px;padding:12px 20px;border-bottom:1px solid #f0ede8;align-items:center"><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--red)">Day 2</span><span style="font-size:13px;color:var(--text)">Plan your lesson</span><span style="font-size:11px;color:var(--muted);text-align:right">Planning page due</span></div>
-      <div style="display:grid;grid-template-columns:80px 1fr 120px;gap:12px;padding:12px 20px;border-bottom:1px solid #f0ede8;align-items:center"><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--red)">Day 3</span><span style="font-size:13px;color:var(--text)">Build your slides & teacher notes</span><span style="font-size:11px;color:var(--muted);text-align:right">Planning page due</span></div>
-      <div style="display:grid;grid-template-columns:80px 1fr 120px;gap:12px;padding:12px 20px;border-bottom:1px solid #f0ede8;align-items:center"><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--red)">Day 4</span><span style="font-size:13px;color:var(--text)">Design the student activity</span><span style="font-size:11px;color:var(--muted);text-align:right">Planning page due</span></div>
-      <div style="display:grid;grid-template-columns:80px 1fr 120px;gap:12px;padding:12px 20px;border-bottom:1px solid #f0ede8;align-items:center"><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:#9333ea)">Day 5</span><span style="font-size:13px;color:var(--text)">Build your assessment <span style="font-size:11px;color:#9333ea;background:#f3e8ff;padding:1px 6px;border-radius:10px;margin-left:4px">Optional</span></span><span style="font-size:11px;color:var(--muted);text-align:right">If assigned</span></div>
-      <div style="display:grid;grid-template-columns:80px 1fr 120px;gap:12px;padding:12px 20px;border-bottom:1px solid #f0ede8;align-items:center"><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--red)">Day 6</span><span style="font-size:13px;color:var(--text)">Rehearse & final touches</span><span style="font-size:11px;color:var(--muted);text-align:right">Checklist due</span></div>
-      <div style="display:grid;grid-template-columns:80px 1fr 120px;gap:12px;padding:12px 20px;align-items:center"><span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--green)">Day 7</span><span style="font-size:13px;color:var(--text);font-weight:500">Present your lesson! 🎉</span><span style="font-size:11px;color:var(--green);font-weight:500;text-align:right">Presentation day</span></div>
-    </div>
-  </div>
+  <div style="background:var(--navy);border-radius:10px;padding:14px 18px;font-size:13px;color:rgba(255,255,255,.8)">📋 <strong style="color:white">Feedback forms</strong> are collected at the end of class and count as a participation grade. Complete every section honestly and specifically for each team.</div>
 </div>
 
 <!-- STANDARDS -->
 <div id="standards" class="page">
   <div class="section-eyebrow">Oklahoma Academic Standards</div>
   <div class="section-title">Choose Your Standard</div>
-  <div class="section-sub">These are the 7th grade math objectives you can teach. ✓ Recommended ones are the best fit for a 10–15 min lesson. Filter by strand or use the Spin to Pick page!</div>
-
+  <div class="section-sub">These are the recommended 7th grade objectives — the best fit for a 10–15 min lesson. Filter by strand or use the Spin to Pick page!</div>
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterStds('all', this)">All (20 recommended)</button>
-    <button class="filter-btn fn" onclick="filterStds('N', this)">Numbers & Operations</button>
-    <button class="filter-btn fa" onclick="filterStds('A', this)">Algebraic Reasoning</button>
-    <button class="filter-btn fgm" onclick="filterStds('GM', this)">Geometry & Measurement</button>
-    <button class="filter-btn fd" onclick="filterStds('D', this)">Data & Probability</button>
+    <button class="filter-btn active" onclick="filterStds('all',this)">All (20 recommended)</button>
+    <button class="filter-btn" onclick="filterStds('N',this)">Numbers & Operations</button>
+    <button class="filter-btn" onclick="filterStds('A',this)">Algebraic Reasoning</button>
+    <button class="filter-btn" onclick="filterStds('GM',this)">Geometry & Measurement</button>
+    <button class="filter-btn" onclick="filterStds('D',this)">Data & Probability</button>
   </div>
-
   <div class="standards-list" id="stdList">
     <div class="std-item" data-strand="N"><span class="std-code">7.N.1.3</span><span class="std-desc">Explain absolute value as distance from zero; apply to model and solve problems.<div class="recommend-tag">✓ Recommended</div></span><span class="std-badge badge-n">N</span></div>
     <div class="std-item" data-strand="N"><span class="std-code">7.N.2.3</span><span class="std-desc">Multiply and divide integers using efficient procedures and standard algorithms.<div class="recommend-tag">✓ Recommended</div></span><span class="std-badge badge-n">N</span></div>
     <div class="std-item" data-strand="N"><span class="std-code">7.N.2.4</span><span class="std-desc">Raise rational numbers (integers, fractions, decimals) to positive integer exponents.<div class="recommend-tag">✓ Recommended</div></span><span class="std-badge badge-n">N</span></div>
     <div class="std-item" data-strand="N"><span class="std-code">7.N.1.1</span><span class="std-desc">Compare and order rational numbers in various forms using &lt;, &gt;, and =.</span><span class="std-badge badge-n">N</span></div>
-    <div class="std-item" data-strand="N"><span class="std-code">7.N.1.2</span><span class="std-desc">Recognize and generate equivalent representations of rational numbers, including equivalent fractions.</span><span class="std-badge badge-n">N</span></div>
+    <div class="std-item" data-strand="N"><span class="std-code">7.N.1.2</span><span class="std-desc">Recognize and generate equivalent representations of rational numbers.</span><span class="std-badge badge-n">N</span></div>
     <div class="std-item" data-strand="A"><span class="std-code">7.A.1.1</span><span class="std-desc">Identify a relationship as proportional if it can be expressed as y/x = k; distinguish from non-proportional.<div class="recommend-tag">✓ Recommended</div></span><span class="std-badge badge-a">A</span></div>
     <div class="std-item" data-strand="A"><span class="std-code">7.A.1.2</span><span class="std-desc">Recognize that the graph of a proportional relationship is a line through the origin at (1, r).<div class="recommend-tag">✓ Recommended</div></span><span class="std-badge badge-a">A</span></div>
     <div class="std-item" data-strand="A"><span class="std-code">7.A.2.1</span><span class="std-desc">Represent proportional relationships with tables, descriptions, symbols, and graphs; determine unit rate.<div class="recommend-tag">✓ Recommended</div></span><span class="std-badge badge-a">A</span></div>
@@ -249,12 +427,9 @@
 <div id="spinner" class="page">
   <div class="section-eyebrow">Can't Decide?</div>
   <div class="section-title">Spin to Pick a Standard</div>
-  <div class="section-sub">Hit spin and the wheel will randomly land on one of the 20 recommended objectives. You can spin as many times as you want!</div>
+  <div class="section-sub">Hit spin and the wheel will randomly land on one of the 20 recommended objectives. Spin as many times as you want!</div>
   <div class="spinner-wrap">
-    <div class="wheel-container">
-      <div class="wheel-pointer"></div>
-      <canvas id="wheel" width="380" height="380"></canvas>
-    </div>
+    <div class="wheel-container"><div class="wheel-pointer"></div><canvas id="wheel" width="380" height="380"></canvas></div>
     <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN!</button>
     <div class="result-box" id="resultBox">
       <div class="result-strand" id="resultStrand"></div>
@@ -269,181 +444,151 @@
 <div id="rubric" class="page">
   <div class="section-eyebrow">How You'll Be Graded</div>
   <div class="section-title">Project Rubric</div>
-  <div class="section-sub">8 categories, 3 points each = 24 points total. 3 points are deducted for every day a planning page is late.</div>
+  <div class="section-sub">8 categories, 3 points each = 24 points total. 3 points deducted for every late planning page.</div>
   <div class="rubric-wrap">
-    <div class="rubric-top">
-      <div class="rubric-top-title">Lesson Design Project — Rubric</div>
-      <div class="rubric-top-pts">24 pts total · −3 per late day</div>
-    </div>
+    <div class="rubric-top"><div class="rubric-top-title">Lesson Design Project — Rubric</div><div class="rubric-top-pts">24 pts total · −3 per late day</div></div>
     <table>
-      <thead>
-        <tr>
-          <th style="width:22%">Category</th>
-          <th class="c3" style="width:26%;text-align:center">Meets Expectations (3)</th>
-          <th class="c2" style="width:26%;text-align:center">Approaching (2)</th>
-          <th class="c1" style="width:19%;text-align:center">Not Yet (1)</th>
-          <th style="width:7%;text-align:center">Score</th>
-        </tr>
-      </thead>
+      <thead><tr><th style="width:22%">Category</th><th class="c3" style="width:25%;text-align:center">Meets expectations (3)</th><th class="c2" style="width:25%;text-align:center">Approaching (2)</th><th class="c1" style="width:21%;text-align:center">Not yet (1)</th><th style="width:7%;text-align:center">Score</th></tr></thead>
       <tbody>
-        <tr><td>Standard Breakdown<span class="cat-day">Day 1</span></td><td class="c3">Key words, tricky parts, prior knowledge, and clear "I can..." goal all complete.</td><td class="c2">"I can..." goal present but could be clearer; minor gaps.</td><td class="c1">Incomplete or "I can..." goal missing or off-standard.</td><td class="score">___/3</td></tr>
-        <tr><td>Lesson Plan<span class="cat-day">Day 2</span></td><td class="c3">Teaching method, visual, timed outline, note structure, and roles all clearly planned.</td><td class="c2">Most elements planned; one area underdeveloped.</td><td class="c1">Method or outline missing or too vague.</td><td class="score">___/3</td></tr>
-        <tr><td>Slides & Notes<span class="cat-day">Day 3</span></td><td class="c3">4–6 clear slides, full speaker notes on every slide, guided practice included.</td><td class="c2">Slides mostly clear; some notes too brief or incomplete.</td><td class="c1">Slides hard to follow, notes missing, or no guided practice.</td><td class="score">___/3</td></tr>
-        <tr><td>Student Activity<span class="cat-day">Day 4</span></td><td class="c3">Well-matched to standard; clear instructions, answer key, and debrief included.</td><td class="c2">Relevant and mostly clear; answer key or debrief incomplete.</td><td class="c1">Missing, unclear, or disconnected from standard.</td><td class="score">___/3</td></tr>
+        <tr><td>Standard breakdown<span class="cat-day">Day 1</span></td><td class="c3">Key words, tricky parts, prior knowledge, and clear "I can..." goal all complete.</td><td class="c2">"I can..." goal present but could be clearer; minor gaps.</td><td class="c1">Incomplete or "I can..." goal missing or off-standard.</td><td class="score">___/3</td></tr>
+        <tr><td>Lesson plan<span class="cat-day">Day 2</span></td><td class="c3">Teaching method, visual, timed outline, note structure, and roles all clearly planned.</td><td class="c2">Most elements planned; one area underdeveloped.</td><td class="c1">Method or outline missing or too vague.</td><td class="score">___/3</td></tr>
+        <tr><td>Slides & notes<span class="cat-day">Day 3</span></td><td class="c3">4–6 clear slides, full speaker notes on every slide, guided practice included.</td><td class="c2">Slides mostly clear; some notes too brief or incomplete.</td><td class="c1">Slides hard to follow, notes missing, or no guided practice.</td><td class="score">___/3</td></tr>
+        <tr><td>Student activity<span class="cat-day">Day 4</span></td><td class="c3">Well-matched to standard; clear instructions, answer key, and debrief included.</td><td class="c2">Relevant and mostly clear; answer key or debrief incomplete.</td><td class="c1">Missing, unclear, or disconnected from standard.</td><td class="score">___/3</td></tr>
         <tr><td>Assessment<span class="cat-day">Day 5</span></td><td class="c3">Aligned to "I can..." goal, format explained, answer key included.</td><td class="c2">Present and on-topic; alignment or answer key incomplete.</td><td class="c1">Missing, unclear, or disconnected from lesson.</td><td class="score">___/3</td></tr>
-        <tr><td>Delivery<span class="cat-day">Day 7</span></td><td class="c3">Clear, confident, well-paced; uses notes naturally and engages the class.</td><td class="c2">Mostly clear; minor pacing or confidence issues.</td><td class="c1">Hard to follow, rushed, or reads directly from slides.</td><td class="score">___/3</td></tr>
+        <tr><td>Delivery<span class="cat-day">Day 7</span></td><td class="c3">Clear, confident, well-paced (8–10 min); uses notes naturally and engages the class.</td><td class="c2">Mostly clear; minor pacing or confidence issues.</td><td class="c1">Hard to follow, rushed, or reads directly from slides.</td><td class="score">___/3</td></tr>
         <tr><td>Teamwork<span class="cat-day">All days</span></td><td class="c3">Both members contributed equally across all days and the presentation.</td><td class="c2">Both participated; one may have carried more of the load.</td><td class="c1">One member did most of the work or presenting.</td><td class="score">___/3</td></tr>
-        <tr><td>Planning Pages<span class="cat-day">Days 1–5</span></td><td class="c3">All pages complete, thoughtful, on time, and build on the day before.</td><td class="c2">Most pages complete and on time; one may be rushed.</td><td class="c1">Multiple pages missing, incomplete, or low effort.</td><td class="score">___/3</td></tr>
+        <tr><td>Planning pages<span class="cat-day">Days 1–5</span></td><td class="c3">All pages complete, thoughtful, on time, and build on the day before.</td><td class="c2">Most pages complete and on time; one may be rushed.</td><td class="c1">Multiple pages missing, incomplete, or low effort.</td><td class="score">___/3</td></tr>
       </tbody>
     </table>
-    <div class="rubric-footer">
-      <span>Points deducted (late): ______</span>
-      <strong>FINAL: ___ / 24</strong>
-    </div>
+    <div class="rubric-footer"><span>Points deducted (late): ______</span><strong>FINAL: ___ / 24</strong></div>
   </div>
 </div>
 
+<!-- VIDEO MODAL -->
+<div id="videoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:16px">
+  <div style="position:relative;width:min(720px,90vw);aspect-ratio:16/9;border-radius:12px;overflow:hidden">
+    <iframe id="videoFrame" width="100%" height="100%" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%"></iframe>
+  </div>
+  <button onclick="closeVideo()" style="background:white;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:10px 28px;border-radius:8px;cursor:pointer">✕ Close</button>
+</div>
+
 <script>
-// PAGE NAV
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+// NAV
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const idx = ['home','overview','standards','spinner','rubric'].indexOf(id);
-  if (idx >= 0) document.querySelectorAll('.nav-links button')[idx].classList.add('active');
-  window.scrollTo(0, 0);
+  const pages=['home','overview','days','standards','spinner','rubric'];
+  const idx=pages.indexOf(id);
+  if(idx>=0) document.querySelectorAll('.nav-links button')[idx].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showDay(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('day-'+id).classList.add('active');
+  document.querySelectorAll('.nav-links button')[2].classList.add('active');
+  window.scrollTo(0,0);
 }
 
 // FILTER
-function filterStds(strand, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function filterStds(strand,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.std-item').forEach(item => {
-    if (strand === 'all') { item.classList.remove('hidden'); }
-    else { item.dataset.strand === strand ? item.classList.remove('hidden') : item.classList.add('hidden'); }
+  document.querySelectorAll('.std-item').forEach(item=>{
+    strand==='all'?item.classList.remove('hidden'):item.dataset.strand===strand?item.classList.remove('hidden'):item.classList.add('hidden');
   });
 }
 
-// WHEEL DATA
-const standards = [
-  { code: '7.N.1.3', text: 'Absolute value — distance from zero, apply to solve problems', strand: 'Numbers & Operations', color: '#3b82f6' },
-  { code: '7.N.2.3', text: 'Multiply and divide integers using standard algorithms', strand: 'Numbers & Operations', color: '#3b82f6' },
-  { code: '7.N.2.4', text: 'Raise rational numbers to positive integer exponents', strand: 'Numbers & Operations', color: '#3b82f6' },
-  { code: '7.A.1.1', text: 'Identify proportional relationships using y/x = k', strand: 'Algebraic Reasoning', color: '#22c55e' },
-  { code: '7.A.1.2', text: 'Graph of proportional relationship passes through origin', strand: 'Algebraic Reasoning', color: '#22c55e' },
-  { code: '7.A.2.1', text: 'Represent proportional relationships with tables, graphs, equations', strand: 'Algebraic Reasoning', color: '#22c55e' },
-  { code: '7.A.2.2', text: 'Solve multi-step proportional problems: percent, discounts, tips', strand: 'Algebraic Reasoning', color: '#22c55e' },
-  { code: '7.A.2.3', text: 'Use proportional reasoning to solve ratio problems', strand: 'Algebraic Reasoning', color: '#22c55e' },
-  { code: '7.A.3.1', text: 'Write and solve linear equations: px + q = r', strand: 'Algebraic Reasoning', color: '#22c55e' },
-  { code: '7.A.3.2', text: 'Solve and graph linear inequalities', strand: 'Algebraic Reasoning', color: '#22c55e' },
-  { code: '7.A.4.1', text: 'Use properties to generate equivalent expressions', strand: 'Algebraic Reasoning', color: '#22c55e' },
-  { code: '7.GM.1.1', text: 'Surface area of rectangular prisms using nets', strand: 'Geometry & Measurement', color: '#f59e0b' },
-  { code: '7.GM.1.3', text: 'Use V = lwh to find volume of rectangular prisms', strand: 'Geometry & Measurement', color: '#f59e0b' },
-  { code: '7.GM.2.1', text: 'Circumference of a circle: C = πd = 2πr', strand: 'Geometry & Measurement', color: '#f59e0b' },
-  { code: '7.GM.2.2', text: 'Area of a circle: A = πr²', strand: 'Geometry & Measurement', color: '#f59e0b' },
-  { code: '7.GM.3.1', text: 'Use map scale to determine actual distances', strand: 'Geometry & Measurement', color: '#f59e0b' },
-  { code: '7.GM.3.2', text: 'Use scale factors to solve scale drawing problems', strand: 'Geometry & Measurement', color: '#f59e0b' },
-  { code: '7.GM.4.1', text: 'Find unknown angles: complementary, supplementary, vertical', strand: 'Geometry & Measurement', color: '#f59e0b' },
-  { code: '7.GM.4.2', text: 'Angle relationships in triangles and quadrilaterals', strand: 'Geometry & Measurement', color: '#f59e0b' },
-  { code: '7.D.1.1', text: 'Design experiments, collect and display data', strand: 'Data & Probability', color: '#ec4899' },
-  { code: '7.D.1.3', text: 'Mean, median, mode — how outliers affect measures', strand: 'Data & Probability', color: '#ec4899' },
-  { code: '7.D.2.1', text: 'Theoretical probability and its complement', strand: 'Data & Probability', color: '#ec4899' },
-  { code: '7.D.2.2', text: 'Probability of two independent events', strand: 'Data & Probability', color: '#ec4899' },
-  { code: '7.D.2.3', text: 'Compare experimental and theoretical probability', strand: 'Data & Probability', color: '#ec4899' },
+// VIDEO MODAL
+function openVideo(url){
+  const vid=url.split('v=')[1];
+  document.getElementById('videoFrame').src='https://www.youtube.com/embed/'+vid+'?autoplay=1';
+  const m=document.getElementById('videoModal');
+  m.style.display='flex';
+}
+function closeVideo(){
+  document.getElementById('videoFrame').src='';
+  document.getElementById('videoModal').style.display='none';
+}
+
+// WHEEL
+const standards=[
+  {code:'7.N.1.3',text:'Absolute value — distance from zero, apply to solve problems',strand:'Numbers & Operations',color:'#3b82f6'},
+  {code:'7.N.2.3',text:'Multiply and divide integers using standard algorithms',strand:'Numbers & Operations',color:'#3b82f6'},
+  {code:'7.N.2.4',text:'Raise rational numbers to positive integer exponents',strand:'Numbers & Operations',color:'#3b82f6'},
+  {code:'7.A.1.1',text:'Identify proportional relationships using y/x = k',strand:'Algebraic Reasoning',color:'#22c55e'},
+  {code:'7.A.1.2',text:'Graph of proportional relationship passes through origin',strand:'Algebraic Reasoning',color:'#22c55e'},
+  {code:'7.A.2.1',text:'Represent proportional relationships with tables, graphs, equations',strand:'Algebraic Reasoning',color:'#22c55e'},
+  {code:'7.A.2.2',text:'Solve multi-step proportional problems: percent, discounts, tips',strand:'Algebraic Reasoning',color:'#22c55e'},
+  {code:'7.A.2.3',text:'Use proportional reasoning to solve ratio problems',strand:'Algebraic Reasoning',color:'#22c55e'},
+  {code:'7.A.3.1',text:'Write and solve linear equations: px + q = r',strand:'Algebraic Reasoning',color:'#22c55e'},
+  {code:'7.A.3.2',text:'Solve and graph linear inequalities',strand:'Algebraic Reasoning',color:'#22c55e'},
+  {code:'7.A.4.1',text:'Use properties to generate equivalent expressions',strand:'Algebraic Reasoning',color:'#22c55e'},
+  {code:'7.GM.1.1',text:'Surface area of rectangular prisms using nets',strand:'Geometry & Measurement',color:'#f59e0b'},
+  {code:'7.GM.1.3',text:'Use V = lwh to find volume of rectangular prisms',strand:'Geometry & Measurement',color:'#f59e0b'},
+  {code:'7.GM.2.1',text:'Circumference of a circle: C = πd = 2πr',strand:'Geometry & Measurement',color:'#f59e0b'},
+  {code:'7.GM.2.2',text:'Area of a circle: A = πr²',strand:'Geometry & Measurement',color:'#f59e0b'},
+  {code:'7.GM.3.1',text:'Use map scale to determine actual distances',strand:'Geometry & Measurement',color:'#f59e0b'},
+  {code:'7.GM.3.2',text:'Use scale factors to solve scale drawing problems',strand:'Geometry & Measurement',color:'#f59e0b'},
+  {code:'7.GM.4.1',text:'Find unknown angles: complementary, supplementary, vertical',strand:'Geometry & Measurement',color:'#f59e0b'},
+  {code:'7.GM.4.2',text:'Angle relationships in triangles and quadrilaterals',strand:'Geometry & Measurement',color:'#f59e0b'},
+  {code:'7.D.1.1',text:'Design experiments, collect and display data',strand:'Data & Probability',color:'#ec4899'},
+  {code:'7.D.1.3',text:'Mean, median, mode — how outliers affect measures',strand:'Data & Probability',color:'#ec4899'},
+  {code:'7.D.2.1',text:'Theoretical probability and its complement',strand:'Data & Probability',color:'#ec4899'},
+  {code:'7.D.2.2',text:'Probability of two independent events',strand:'Data & Probability',color:'#ec4899'},
+  {code:'7.D.2.3',text:'Compare experimental and theoretical probability',strand:'Data & Probability',color:'#ec4899'},
 ];
-
-// DRAW WHEEL
-const canvas = document.getElementById('wheel');
-const ctx = canvas.getContext('2d');
-const cx = 190, cy = 190, r = 185;
-const sliceAngle = (2 * Math.PI) / standards.length;
-let currentRotation = 0;
-let spinning = false;
-
-function drawWheel(rotation) {
-  ctx.clearRect(0, 0, 380, 380);
-  standards.forEach((s, i) => {
-    const start = rotation + i * sliceAngle;
-    const end = start + sliceAngle;
-    // Slice
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, r, start, end);
-    ctx.closePath();
-    ctx.fillStyle = s.color;
-    ctx.globalAlpha = i % 2 === 0 ? 1 : 0.75;
-    ctx.fill();
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-    // Label
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(start + sliceAngle / 2);
-    ctx.textAlign = 'right';
-    ctx.fillStyle = 'white';
-    ctx.globalAlpha = 1;
-    ctx.font = 'bold 11px DM Mono, monospace';
-    ctx.fillText(s.code, r - 10, 4);
-    ctx.restore();
+const canvas=document.getElementById('wheel');
+const ctx=canvas.getContext('2d');
+const cx=190,cy=190,r=185;
+const sliceAngle=(2*Math.PI)/standards.length;
+let currentRotation=0,spinning=false;
+function drawWheel(rotation){
+  ctx.clearRect(0,0,380,380);
+  standards.forEach((s,i)=>{
+    const start=rotation+i*sliceAngle,end=start+sliceAngle;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,start,end);ctx.closePath();
+    ctx.fillStyle=s.color;ctx.globalAlpha=i%2===0?1:.75;ctx.fill();
+    ctx.strokeStyle='white';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(start+sliceAngle/2);
+    ctx.textAlign='right';ctx.fillStyle='white';ctx.globalAlpha=1;
+    ctx.font='bold 11px DM Mono,monospace';ctx.fillText(s.code,r-10,4);ctx.restore();
   });
-  // Center circle
-  ctx.beginPath();
-  ctx.arc(cx, cy, 28, 0, 2 * Math.PI);
-  ctx.fillStyle = '#1d2d44';
-  ctx.globalAlpha = 1;
-  ctx.fill();
-  ctx.strokeStyle = 'white';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.fillStyle = 'white';
-  ctx.font = 'bold 10px DM Sans, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('SPIN', cx, cy + 4);
+  ctx.beginPath();ctx.arc(cx,cy,28,0,2*Math.PI);
+  ctx.fillStyle='#1d2d44';ctx.globalAlpha=1;ctx.fill();
+  ctx.strokeStyle='white';ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle='white';ctx.font='bold 10px DM Sans,sans-serif';
+  ctx.textAlign='center';ctx.fillText('SPIN',cx,cy+4);
 }
-
 drawWheel(0);
-
-function spinWheel() {
-  if (spinning) return;
-  spinning = true;
-  document.getElementById('spinBtn').disabled = true;
+function spinWheel(){
+  if(spinning)return;
+  spinning=true;
+  document.getElementById('spinBtn').disabled=true;
   document.getElementById('resultBox').classList.remove('show');
-
-  const extraSpins = (Math.floor(Math.random() * 5) + 5) * 2 * Math.PI;
-  const randomOffset = Math.random() * 2 * Math.PI;
-  const targetRotation = currentRotation + extraSpins + randomOffset;
-  const duration = 3500;
-  const start = performance.now();
-  const startRot = currentRotation;
-
-  function animate(now) {
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
-    const ease = 1 - Math.pow(1 - progress, 4);
-    currentRotation = startRot + (targetRotation - startRot) * ease;
+  const extraSpins=(Math.floor(Math.random()*5)+5)*2*Math.PI;
+  const randomOffset=Math.random()*2*Math.PI;
+  const targetRotation=currentRotation+extraSpins+randomOffset;
+  const duration=3500,start=performance.now(),startRot=currentRotation;
+  function animate(now){
+    const elapsed=now-start,progress=Math.min(elapsed/duration,1);
+    const ease=1-Math.pow(1-progress,4);
+    currentRotation=startRot+(targetRotation-startRot)*ease;
     drawWheel(currentRotation);
-    if (progress < 1) {
-      requestAnimationFrame(animate);
-    } else {
-      currentRotation = targetRotation;
-      drawWheel(currentRotation);
-      spinning = false;
-      document.getElementById('spinBtn').disabled = false;
-      showResult();
-    }
+    if(progress<1){requestAnimationFrame(animate);}
+    else{currentRotation=targetRotation;drawWheel(currentRotation);spinning=false;document.getElementById('spinBtn').disabled=false;showResult();}
   }
   requestAnimationFrame(animate);
 }
-
-function showResult() {
-  // Pointer is at top (−π/2). Find which slice is under it.
-  const norm = (((-currentRotation - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-  const idx = Math.floor(norm / sliceAngle) % standards.length;
-  const s = standards[idx];
-  document.getElementById('resultStrand').textContent = s.strand;
-  document.getElementById('resultCode').textContent = s.code;
-  document.getElementById('resultText').textContent = s.text;
+function showResult(){
+  const norm=(((- currentRotation-Math.PI/2)%(2*Math.PI))+2*Math.PI)%(2*Math.PI);
+  const idx=Math.floor(norm/sliceAngle)%standards.length;
+  const s=standards[idx];
+  document.getElementById('resultStrand').textContent=s.strand;
+  document.getElementById('resultCode').textContent=s.code;
+  document.getElementById('resultText').textContent=s.text;
   document.getElementById('resultBox').classList.add('show');
 }
 </script>
